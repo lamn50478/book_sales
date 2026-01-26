@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug 
-
+include ../../mixins/table-tree.pug
 
 
 block main 
@@ -23,66 +23,11 @@ block main
             th 
               input(type="checkbox" name="checkall")
             th STT 
-            th Image 
+            th Image
             th Title           
             th Position
             th Status 
             th Action 
 
         tbody 
-          each item, index in records
-            tr 
-              td 
-                input(type="checkbox" name="id" value=item.id)
-              td #{index + 1}
-              td 
-                .inner-image 
-                  img(
-                    src=item.thumbnail
-                    alt=item.title
-                    style="width: 100px; height:auto"
-                  )
-              td #{item.title}
-              td #{item.price}$
-              td 
-                input(
-                  type="number",
-                  style="width:60px",
-                  min=1,
-                  value=item.position,
-                  name='position'
-
-                )
-              td 
-                if item.status == "active"
-                  a(
-                    data-status=item.status
-                    data-id=item._id
-                    button-change-status
-                    href=`javascript:;`
-                    class="badge badge-success") Hoat dong 
-                else 
-                  a(
-                    data-status=item.status
-                    data-id=item._id
-                    button-change-status
-                    href=`javascript:;`
-                    class="badge badge-danger") Khong Hoat dong 
-              td 
-                a(
-                    class="btn btn-secondary btn-sm"
-                    href=`${prefixAdmin}/products-category/detail/${item.id}`
-                    ) Chi tiết 
-                a(
-                  class="btn btn-warning btn-sm ml-1"
-                  href=`${prefixAdmin}/products-category/edit/${item.id}`
-                  ) Sửa
-                button(
-                  class="btn btn-danger btn-sm ml-1"
-                  button-delete 
-                  data-id=item.id
-                  ) Xóa
-
-
-    <script src="/admin/js/product.js"></script>
-    <script src="/admin/js/script.js"></script>
+          +table-tree(records)

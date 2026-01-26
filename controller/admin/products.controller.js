@@ -6,6 +6,9 @@ const searchHelpers=require('../../helpers/search');
 const paginationHelpers=require('../../helpers/pagination');
 const systemConfig=require("../../config/system.js");
 const validate=require("../../validates/admin/products.validate.js")
+
+const productCategory=require('../../models/products-category.model');
+const createTreeHelper=require("../../helpers/create-tree.js")
 //[GET] admin/products
 module.exports.products= async (req,res)=>{
 //Ham bo loc
@@ -140,9 +143,19 @@ module.exports.deleteProduct=async (req,res)=>{
 //[GET] /admin/products/create
 module.exports.create= async (req,res)=>{
 
+    const find={
+      deleted:false
+   }
+   
 
+   const category=await productCategory.find(find);
+   
+   
+   const newCategory=createTreeHelper.tree(category);
+  
    res.render('admin/pages/products/create.pug',{
     pageTitle:"Thêm mới sản phẩm",
+    category:newCategory
    
    })
 };
@@ -169,17 +182,23 @@ module.exports.createPost= async (req,res)=>{
 //[GET] /admin/products/edit
 module.exports.edit= async (req,res)=>{
 try{
-      const id=req.params.id;
-   const find={
-          deleted:false,
-          _id:id
+     const find={
+      deleted:false,
+      _id:req.params.id 
    }
+   
 
-    
-      const product =await Product.findOne(find);
+   const product=await Product.findOne(find);
+   
+   const category= await productCategory.find({
+      deleted:false
+   })
+   const newCategory=createTreeHelper.tree(category);
+
       res.render('admin/pages/products/edit.pug',{
          pageTitle:"Chỉnh sửa sản phẩm",
-         product:product
+         product:product,
+         category:newCategory
    
    })
 }catch(error){

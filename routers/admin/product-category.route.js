@@ -17,6 +17,14 @@ router.post(
     uploadCloud.upload,
     validate.createPost,
     productCategoryController.createPost);
+router.get('/edit/:id',productCategoryController.edit);
+
+router.patch(
+    '/edit/:id',
+    upload.single("thumbnail"),
+    uploadCloud.upload,
+    validate.createPost,
+    productCategoryController.editPost);
 
 
 
