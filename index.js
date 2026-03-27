@@ -12,6 +12,7 @@ const methodOverride=require("method-override")
 const bodyParser= require("body-parser");
 const cookieParser=require("cookie-parser");
 const expressSession=require("express-session");
+const moment=require("moment");
 
 const database=require("./config/database");
 //env set
@@ -38,6 +39,7 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 //end method
 app.locals.prefixAdmin=systemConfig.prefixAdmin;
+app.locals.moment=moment;
 database.connect();
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));

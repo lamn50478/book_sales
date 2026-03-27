@@ -1,0 +1,615 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\layouts\\auth.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\admin\\layouts\\auth.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\index.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\admin\\index.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\auth\\login.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\admin\\pages\\auth\\login.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\product.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\admin\\product.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\middeware\\admin\\auth.middleware.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:middeware\\admin\\auth.middleware.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\auth.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\admin\\auth.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\validates\\admin\\auth.validate.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:validates\\admin\\auth.validate.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\auth.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\admin\\auth.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\accounts.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\admin\\accounts.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\my-account.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\admin\\my-account.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\accounts.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\admin\\accounts.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\client\\product.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\client\\product.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\product-category-getsub.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:helpers\\product-category-getsub.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\partials\\header.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\client\\partials\\header.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\public\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\client\\home.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\client\\home.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\client\\product_route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\client\\product_route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\client\\home.router.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\client\\home.router.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\products.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:helpers\\products.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\pages\\home\\index2.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\client\\pages\\home\\index2.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\pages\\home\\index.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\client\\pages\\home\\index.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\sub-menu.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\client\\layouts\\mixins\\sub-menu.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\product-layout.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\client\\layouts\\mixins\\product-layout.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\product-item.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\client\\layouts\\mixins\\product-item.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\products.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\admin\\products.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\partials\\header.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\admin\\partials\\header.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\products\\create.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\admin\\pages\\products\\create.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\create-tree.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:helpers\\create-tree.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\products\\products.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\admin\\pages\\products\\products.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\dashboard\\index.pug||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:views\\admin\\pages\\dashboard\\index.pug||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\dashboard.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controller\\admin\\dashboard.controller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\config\\system.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:config\\system.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\dashboard.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:routers\\admin\\dashboard.route.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 297,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6d4078d1-5951-4ed1-ac0e-0a8099c1cce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "auth.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\layouts\\auth.pug",
+              "RelativeDocumentMoniker": "views\\admin\\layouts\\auth.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\layouts\\auth.pug",
+              "RelativeToolTip": "views\\admin\\layouts\\auth.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-22T11:01:00.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "login.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\auth\\login.pug",
+              "RelativeDocumentMoniker": "views\\admin\\pages\\auth\\login.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\auth\\login.pug",
+              "RelativeToolTip": "views\\admin\\pages\\auth\\login.pug",
+              "ViewState": "AgIAAEEBAAAAAAAAAAAcwFUBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-22T10:54:08.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "auth.middleware.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\middeware\\admin\\auth.middleware.js",
+              "RelativeDocumentMoniker": "middeware\\admin\\auth.middleware.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\middeware\\admin\\auth.middleware.js",
+              "RelativeToolTip": "middeware\\admin\\auth.middleware.js",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAswBoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:51:20.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "auth.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\auth.controller.js",
+              "RelativeDocumentMoniker": "controller\\admin\\auth.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\auth.controller.js",
+              "RelativeToolTip": "controller\\admin\\auth.controller.js",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAswDAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:49:59.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "auth.validate.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\validates\\admin\\auth.validate.js",
+              "RelativeDocumentMoniker": "validates\\admin\\auth.validate.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\validates\\admin\\auth.validate.js",
+              "RelativeToolTip": "validates\\admin\\auth.validate.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:48:27.146Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "product.route.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\product.route.js",
+              "RelativeDocumentMoniker": "routers\\admin\\product.route.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\product.route.js",
+              "RelativeToolTip": "routers\\admin\\product.route.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T03:29:18.356Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\index.js",
+              "RelativeDocumentMoniker": "index.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\index.js",
+              "RelativeToolTip": "index.js",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAwCsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-02-26T12:21:52.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "auth.route.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\auth.route.js",
+              "RelativeDocumentMoniker": "routers\\admin\\auth.route.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\auth.route.js",
+              "RelativeToolTip": "routers\\admin\\auth.route.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:47:50.764Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "index.route.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\index.route.js",
+              "RelativeDocumentMoniker": "routers\\admin\\index.route.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\index.route.js",
+              "RelativeToolTip": "routers\\admin\\index.route.js",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-02-26T12:31:09.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "accounts.route.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\accounts.route.js",
+              "RelativeDocumentMoniker": "routers\\admin\\accounts.route.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\accounts.route.js",
+              "RelativeToolTip": "routers\\admin\\accounts.route.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:47:27.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "my-account.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\my-account.controller.js",
+              "RelativeDocumentMoniker": "controller\\admin\\my-account.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\my-account.controller.js",
+              "RelativeToolTip": "controller\\admin\\my-account.controller.js",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:46:24.595Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "accounts.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\accounts.controller.js",
+              "RelativeDocumentMoniker": "controller\\admin\\accounts.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\accounts.controller.js",
+              "RelativeToolTip": "controller\\admin\\accounts.controller.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-22T10:46:15.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "index.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\pages\\home\\index.pug",
+              "RelativeDocumentMoniker": "views\\client\\pages\\home\\index.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\pages\\home\\index.pug",
+              "RelativeToolTip": "views\\client\\pages\\home\\index.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T05:07:40.709Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "index2.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\pages\\home\\index2.pug",
+              "RelativeDocumentMoniker": "views\\client\\pages\\home\\index2.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\pages\\home\\index2.pug",
+              "RelativeToolTip": "views\\client\\pages\\home\\index2.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T05:07:41.638Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "product-category-getsub.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\product-category-getsub.js",
+              "RelativeDocumentMoniker": "helpers\\product-category-getsub.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\product-category-getsub.js",
+              "RelativeToolTip": "helpers\\product-category-getsub.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-21T02:49:24.384Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "product-layout.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\product-layout.pug",
+              "RelativeDocumentMoniker": "views\\client\\layouts\\mixins\\product-layout.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\product-layout.pug",
+              "RelativeToolTip": "views\\client\\layouts\\mixins\\product-layout.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T04:45:47.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "header.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\partials\\header.pug",
+              "RelativeDocumentMoniker": "views\\client\\partials\\header.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\partials\\header.pug",
+              "RelativeToolTip": "views\\client\\partials\\header.pug",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAcwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T04:38:28.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "product.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\client\\product.controller.js",
+              "RelativeDocumentMoniker": "controller\\client\\product.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\client\\product.controller.js",
+              "RelativeToolTip": "controller\\client\\product.controller.js",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T04:44:38.235Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "products.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\products.js",
+              "RelativeDocumentMoniker": "helpers\\products.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\products.js",
+              "RelativeToolTip": "helpers\\products.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T05:09:25.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "home.router.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\client\\home.router.js",
+              "RelativeDocumentMoniker": "routers\\client\\home.router.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\client\\home.router.js",
+              "RelativeToolTip": "routers\\client\\home.router.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T05:27:59.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\public\\css\\style.css",
+              "RelativeDocumentMoniker": "public\\css\\style.css",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\public\\css\\style.css",
+              "RelativeToolTip": "public\\css\\style.css",
+              "ViewState": "AgIAADADAAAAAAAAAAAcwEQDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-20T17:22:57.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "product_route.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\client\\product_route.js",
+              "RelativeDocumentMoniker": "routers\\client\\product_route.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\client\\product_route.js",
+              "RelativeToolTip": "routers\\client\\product_route.js",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T05:28:01.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "home.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\client\\home.controller.js",
+              "RelativeDocumentMoniker": "controller\\client\\home.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\client\\home.controller.js",
+              "RelativeToolTip": "controller\\client\\home.controller.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T04:44:24.692Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "product-item.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\product-item.pug",
+              "RelativeDocumentMoniker": "views\\client\\layouts\\mixins\\product-item.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\product-item.pug",
+              "RelativeToolTip": "views\\client\\layouts\\mixins\\product-item.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T04:45:44.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "sub-menu.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\sub-menu.pug",
+              "RelativeDocumentMoniker": "views\\client\\layouts\\mixins\\sub-menu.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\client\\layouts\\mixins\\sub-menu.pug",
+              "RelativeToolTip": "views\\client\\layouts\\mixins\\sub-menu.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T04:41:21.088Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "products.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\products.controller.js",
+              "RelativeDocumentMoniker": "controller\\admin\\products.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\products.controller.js",
+              "RelativeToolTip": "controller\\admin\\products.controller.js",
+              "ViewState": "AgIAACoBAAAAAAAAAAAAAP4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T03:34:11.907Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "header.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\partials\\header.pug",
+              "RelativeDocumentMoniker": "views\\admin\\partials\\header.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\partials\\header.pug",
+              "RelativeToolTip": "views\\admin\\partials\\header.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T04:38:18.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "create.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\products\\create.pug",
+              "RelativeDocumentMoniker": "views\\admin\\pages\\products\\create.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\products\\create.pug",
+              "RelativeToolTip": "views\\admin\\pages\\products\\create.pug",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-18T03:53:34.706Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "create-tree.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\create-tree.js",
+              "RelativeDocumentMoniker": "helpers\\create-tree.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\helpers\\create-tree.js",
+              "RelativeToolTip": "helpers\\create-tree.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-18T03:39:33.613Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "products.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\products\\products.pug",
+              "RelativeDocumentMoniker": "views\\admin\\pages\\products\\products.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\products\\products.pug",
+              "RelativeToolTip": "views\\admin\\pages\\products\\products.pug",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAmwH4AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-02-26T13:25:28.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "index.pug",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\dashboard\\index.pug",
+              "RelativeDocumentMoniker": "views\\admin\\pages\\dashboard\\index.pug",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\views\\admin\\pages\\dashboard\\index.pug",
+              "RelativeToolTip": "views\\admin\\pages\\dashboard\\index.pug",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-02-26T13:25:20.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "dashboard.controller.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\dashboard.controller.js",
+              "RelativeDocumentMoniker": "controller\\admin\\dashboard.controller.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\controller\\admin\\dashboard.controller.js",
+              "RelativeToolTip": "controller\\admin\\dashboard.controller.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-02-26T12:36:55.561Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "system.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\config\\system.js",
+              "RelativeDocumentMoniker": "config\\system.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\config\\system.js",
+              "RelativeToolTip": "config\\system.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-02-26T12:34:40.073Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "dashboard.route.js",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\dashboard.route.js",
+              "RelativeDocumentMoniker": "routers\\admin\\dashboard.route.js",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\routers\\admin\\dashboard.route.js",
+              "RelativeToolTip": "routers\\admin\\dashboard.route.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-02-26T12:33:12.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\package.json",
+              "RelativeDocumentMoniker": "package.json",
+              "ToolTip": "C:\\Users\\minhp\\OneDrive\\Desktop\\backendNodejs(28)\\product-management\\package.json",
+              "RelativeToolTip": "package.json",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAuwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-26T12:26:17.721Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 103,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,222 @@
-extends ../../layouts/default.pug 
-block main 
- h1 Trang chu
+//- 
+extends ../../layouts/default.pug
+
+block main
+
+  //- =============================================
+  //- HERO SECTION
+  //- =============================================
+  section.hero-section
+    .hero-bg-image
+    .hero-overlay
+    .container.hero-container
+      .hero-content
+        .hero-eyebrow
+          span.hero-badge ✦ Sách thiếu nhi chính hãng
+        h1.hero-heading
+          | Thắp sáng 
+          em.hero-heading-em trí tưởng tượng
+          |  của bé
+        p.hero-subtext Tuyển chọn sách tranh, truyện kể và sách học tập — an toàn, sinh động và phù hợp từng độ tuổi.
+        .hero-actions
+          a.btn-hero-primary(href="/collections/best-sellers") Khám phá ngay
+          a.btn-hero-secondary(href="/contact") Tư vấn miễn phí
+      .hero-visual
+        .hero-book-stack
+          img.hero-img(src="/uploads/little-girl-reading.jpeg" alt="Trẻ em đọc sách vui vẻ")
+          .hero-floating-card
+            span.hfc-icon 📚
+            .hfc-text
+              strong 2.000+
+              span  đầu sách
+          .hero-floating-card.hfc-bottom
+            span.hfc-icon ⭐
+            .hfc-text
+              strong 4.9/5
+              span  đánh giá
+
+
+  //- =============================================
+  //- PROMO STRIP
+  //- =============================================
+  .promo-ticker
+    .ticker-inner
+      .ticker-track
+        each item in ['🚀 Miễn phí giao hàng từ 300.000đ', '🎁 Giảm 20% đơn đầu tiên — mã WELCOME20', '📖 Hơn 2.000 đầu sách thiếu nhi', '✨ Đổi trả trong 30 ngày', '🚀 Miễn phí giao hàng từ 300.000đ', '🎁 Giảm 20% đơn đầu tiên — mã WELCOME20', '📖 Hơn 2.000 đầu sách thiếu nhi', '✨ Đổi trả trong 30 ngày']
+          span.ticker-item= item
+
+
+  //- =============================================
+  //- FEATURED CATEGORIES
+  //- =============================================
+  section.section-cats
+    .container
+      .section-header
+        .section-label ✦ Khám phá
+        h2.section-title Danh mục nổi bật
+        p.section-desc Các bộ sưu tập được tuyển chọn theo lứa tuổi và chủ đề
+
+      if !productCategories || productCategories.length === 0
+        .empty-state
+          p Chưa có danh mục nổi bật.
+      else
+        .cats-grid
+          each cat, i in productCategories
+            - var palettes = [['#FDE8D3','#D4642F'],['#D6EAF8','#2471A3'],['#D5F5E3','#1E8449'],['#FDEBD0','#CA6F1E'],['#E8DAEF','#7D3C98'],['#FDFEFE','#2C3E50']]
+            - var pal = palettes[i % palettes.length]
+            a.cat-card(href=`products/category/${cat.slug || ''}` style=`--cat-bg:${pal[0]};--cat-accent:${pal[1]};`)
+              .cat-card-bg
+              .cat-thumb-wrap
+                if cat.thumbnail
+                  img.cat-thumb(src=cat.thumbnail alt=cat.title)
+                else
+                  .cat-thumb-placeholder
+                    span 📚
+              .cat-body
+                h3.cat-title= cat.title
+                - var desc = (cat.description && cat.description.trim()) ? cat.description : 'Bộ sưu tập được tuyển chọn kỹ lưỡng.'
+                - var shortDesc = desc.replace(/<[^>]*>/g,'')
+                - shortDesc = shortDesc.length > 70 ? shortDesc.substring(0, 68) + '…' : shortDesc
+                p.cat-desc= shortDesc
+                .cat-cta
+                  span Xem bộ sưu tập
+                  svg(viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2")
+                    path(d="M3 8h10M9 4l4 4-4 4")
+
+
+  //- =============================================
+  //- BEST SELLERS
+  //- =============================================
+  section.section-bestsellers
+    .container
+      .section-header
+        .section-label ✦ Được yêu thích
+        h2.section-title Bán chạy nhất
+        p.section-desc Những cuốn sách được phụ huynh và bé yêu thích nhất
+
+      if !products || products.length === 0
+        .empty-state
+          p Chưa có sản phẩm bán chạy.
+      else
+        .books-carousel
+          each book in products
+            .book-card
+              a.book-card-inner(href=`products/category/detail/${book.slug}`)
+                .book-cover-wrap
+                  if book.thumbnail
+                    img.book-cover(src=book.thumbnail alt=book.title loading="lazy")
+                  else
+                    .book-cover-placeholder
+                      span 📖
+                  .book-cover-shine
+                  .book-overlay
+                    span.book-overlay-cta Xem chi tiết
+                .book-spine
+                .book-info
+                  if book.author
+                    p.book-author= book.author
+                  h4.book-name= book.title
+                  .book-price-row
+                    if book.finalPrice && book.finalPrice < book.price
+                      span.book-price-new= `${book.finalPrice.toLocaleString('vi-VN')}₫`
+                      span.book-price-old= `${book.price.toLocaleString('vi-VN')}₫`
+                    else
+                      span.book-price-new= `${(book.finalPrice || book.price).toLocaleString('vi-VN')}₫`
+                  a.book-buy-btn(href=`products/category/detail/${book.slug}`)
+                    svg(viewBox="0 0 20 20" fill="currentColor")
+                      path(d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z")
+                    | Mua ngay
+
+
+  //- =============================================
+  //- NEW ARRIVALS + NEWSLETTER
+  //- =============================================
+  section.section-new-arrivals
+    .container
+      .na-layout
+        .na-main
+          .section-header.section-header--left
+            .section-label ✦ Mới nhất
+            h2.section-title Sách mới về
+
+          if !productNew2 || productNew2.length === 0
+            .empty-state Chưa có sách mới về.
+          else
+            .na-list
+              each item in productNew2
+                - const title = item.title || 'Không có tiêu đề'
+                - const slug = item.slug || (item._id ? String(item._id) : '#')
+                - const thumb = item.thumbnail || '/images/placeholder.png'
+                - const price = (item.price != null) ? item.price : null
+                - const rawDesc = item.description ? String(item.description).replace(/<[^>]*>/g,'') : ''
+                - const shortDesc = rawDesc.length > 160 ? rawDesc.slice(0,158) + '…' : rawDesc
+
+                a.na-card(href=`/products/category/detail/${slug}`)
+                  .na-thumb-wrap
+                    img.na-thumb(src=thumb alt=title loading="lazy")
+                    .na-new-badge Mới
+                  .na-info
+                    h3.na-title= title
+                    if shortDesc
+                      p.na-desc= shortDesc
+                    .na-footer
+                      if price != null
+                        span.na-price= `${price.toLocaleString('vi-VN')}₫`
+                      else
+                        span.na-price.na-price--contact Liên hệ
+                      span.na-link-arrow
+                        | Xem chi tiết &nbsp;→
+
+        .na-sidebar
+          .newsletter-card
+            .nl-icon 📬
+            strong.nl-title Nhận gợi ý sách mỗi tuần
+            p.nl-desc Danh sách sách phù hợp theo độ tuổi bé và ưu đãi độc quyền cho thành viên.
+            form.nl-form(action="/subscribe" method="post" novalidate)
+              .nl-input-wrap
+                input#email.nl-input(type="email" name="email" placeholder="Email của bạn…" required aria-label="Email đăng ký")
+              button.nl-btn(type="submit") Đăng ký ngay
+            p.nl-note 🔒 Không spam — huỷ đăng ký bất kỳ lúc nào
+
+
+  //- =============================================
+  //- TRUST BADGES
+  //- =============================================
+  .trust-bar
+    .container
+      .trust-grid
+        .trust-item
+          .trust-icon 🚚
+          .trust-text
+            strong Giao hàng nhanh
+            span Miễn phí từ 300.000đ
+        .trust-item
+          .trust-icon 📗
+          .trust-text
+            strong Tuyển chọn kỹ
+            span Sách an toàn, đúng lứa tuổi
+        .trust-item
+          .trust-icon 💬
+          .trust-text
+            strong Hỗ trợ 7/7
+            span Tư vấn chọn sách miễn phí
+        .trust-item
+          .trust-icon ↩️
+          .trust-text
+            strong Đổi trả dễ dàng
+            span Trong vòng 30 ngày
+
+
+  //- =============================================
+  //- FOOTER
+  //- =============================================
+  footer.site-footer
+    .container
+      .footer-inner
+        .footer-brand
+          p.footer-copy © 2026 Sách Thiếu Nhi · Thắp sáng trí tưởng tượng
+          p.footer-addr 📍 123 Đường Trẻ Thơ, Hà Nội
+        .footer-links
+          a(href="/about") Về chúng tôi
+          a(href="/shipping") Giao hàng
+          a(href="/privacy") Bảo mật

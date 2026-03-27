@@ -1,0 +1,29 @@
+//- include product-item.pug 
+//- mixin product-grid(productFeatured)
+//-     .row 
+//-         each item in productFeatured 
+//-             +product-item(item)
+//- mixin product-grid2(productFeatured)
+//-     .row 
+//-         each item in productFeatured 
+//-             +product-item2(item)
+include product-item.pug
+
+mixin product-grid(productFeatured)
+  .section-header.mt-4
+    .section-label ✦ Được yêu thích
+    h2.section-title Sản phẩm nổi bật
+    p.section-desc Những sản phẩm được khách hàng yêu thích nhất
+  .books-carousel
+    each item in productFeatured
+      +product-item(item)
+
+mixin product-grid2(productFeatured)
+  .section-header.mt-4
+    .section-label ✦ Được yêu thích
+    h2.section-title Bán chạy nhất
+    p.section-desc Những cuốn sách được phụ huynh và bé yêu thích nhất
+  .books-carousel
+    each item in productFeatured
+      +product-item2(item)
+

@@ -3,4 +3,8 @@ const router=express.Router();
 const controller=require('../../controller/client/home.controller.js')
 
 router.get("/",controller.index);
+router.get("/demo",controller.index2);
+
+
+
 module.exports=router;

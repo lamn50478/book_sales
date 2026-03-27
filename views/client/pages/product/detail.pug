@@ -1,27 +1,227 @@
 extends ../../layouts/default.pug
-
+include ../../layouts/mixins/box-head.pug
+include ../../layouts/mixins/alert.pug
 
 block main
-  .product-card.fade-in
-    .card-header
-      h1.card-title #{product.title}
-    .card-body
-      if product.thumbnail
-        .image-wrapper
-          img.thumbnail(src=product.thumbnail alt="Air Purifier")
-      .info-grid
-        .info-item Giá: 
-          span.price #{product.price}$
-        .info-item Giảm giá: 
-          span.discount -#{product.discountPercentage}%
-        .info-item Giá mới: 
-          span.price #{product.newPrice}$
-        .info-item Còn lại: 
-          span.stock #{product.stock}
-      if product.description
-        p.description Mô tả: #{product.description}
-      a(
-            class="btn btn-warning btn-sm ml-1"
-            style="width:auto"
-            href=`${prefixAdmin}/products/edit/${product.id}`
-            ) Chỉnh sửa sản phẩm
+  +alert-success(3000)
+  if product
+    - const images = (product.images && product.images.length) ? product.images : [product.thumbnail];
+    - const ratingValue = (typeof product.rating !== 'undefined' && product.rating !== null) ? Number(product.rating) : 4.5;
+    - const unitPrice = Number(product.priceNew || product.newPrice || product.price) || 0;
+    - const basePrice = Number(product.price) || unitPrice;
+    - const discountPercent = (product.discountPercentage && Number(product.discountPercentage) > 0) ? Number(product.discountPercentage) : Math.max(0, Math.round(((basePrice - unitPrice) / (basePrice || 1)) * 100));
+    - const stockValue = (typeof product.stock !== 'undefined') ? Number(product.stock) : 9999;
+    - const displayStock = (typeof product.stock !== 'undefined') ? Number(product.stock) : 'Còn hàng';
+    - const authorName = product.author || 'Nhiều tác giả';
+    - const publisherName = product.publisher || 'NXB Trẻ';
+    - const coverType = product.coverType || 'Bìa mềm';
+    - const publishYear = product.publishYear || '2025';
+    
+    .book-detail-page
+      .container
+        
+        nav.book-breadcrumb(aria-label="Breadcrumb")
+          a(href="/") Trang chủ
+          span /
+          if product.category
+            a(href=`/products/category/${product.category.slug}`) #{product.category.title}
+            span /
+          span.active #{product.title}
+        .book-main
+          .book-gallery
+            .book-main-image
+              if discountPercent > 0
+                span.book-discount-badge -#{discountPercent}%
+              img#mainImage(src=images[0] alt=product.title loading="lazy")
+            .book-thumbs
+              each imgUrl, idx in images
+                button.book-thumb(type="button" class=idx === 0 ? "active" : "" data-index=idx aria-label=`Xem ảnh ${idx+1}`)
+                  img(src=imgUrl alt=`Ảnh phụ ${idx+1}` loading="lazy")
+            .book-services
+              .service-item
+                span.service-dot
+                span Giao nhanh 2h nội thành
+              .service-item
+                span.service-dot
+                span Đổi trả trong 7 ngày nếu lỗi
+              .service-item
+                span.service-dot
+                span Hoàn tiền 100% nếu hàng giả
+          .book-info
+            .book-info-top
+              if product.category
+                a.book-category(href=`/products/category/${product.category.slug}`) #{product.category.title}
+              h1.book-title #{product.title}
+              .book-meta
+                .rating-area
+                  .rating-stars(role="img" aria-label=`Đánh giá ${ratingValue} trên 5`)
+                    - for (var i = 1; i <= 5; i++)
+                      if i <= Math.round(ratingValue)
+                        span.star.filled
+                          svg(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
+                            path(d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.168L12 18.896l-7.336 3.87 1.402-8.168L.132 9.21l8.2-1.192L12 .587z")
+                      else
+                        span.star.empty
+                          svg(width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
+                            path(d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z")
+                  span.rating-text #{ratingValue.toFixed(1)} / 5
+                span.meta-divider |
+                span.stock-text Còn #{displayStock}
+              .book-price-box
+                .book-price-main #{unitPrice.toLocaleString('en-US')}$
+                if basePrice > unitPrice
+                  .book-price-old #{basePrice.toLocaleString('en-US')}$
+                if discountPercent > 0
+                  .book-price-save Tiết kiệm #{discountPercent}%
+              ul.book-highlights
+                li Tác giả: #{authorName}
+                li Nhà xuất bản: #{publisherName}
+                li Hình thức bìa: #{coverType}
+            aside.buy-box
+              form.buy-form(action=`/cart/add/${product.id}` method="POST" aria-label=`Thêm ${product.title} vào giỏ hàng`)
+                .buy-row
+                  label.qty-label(for="quantity") Số lượng
+                  .qty-control
+                    button.qty-btn(type="button" id="decrease" aria-label="Giảm số lượng") −
+                    input#quantity.qty-input(type="number" name="quantity" value="1" min="1" max=stockValue aria-required="true")
+                    button.qty-btn(type="button" id="increase" aria-label="Tăng số lượng") +
+                .total-price
+                  span.total-label Tạm tính
+                  span#totalPrice.total-value #{unitPrice.toLocaleString('en-US')}$
+                .buy-actions
+                  button.btn.btn-buy(type="submit") Thêm vào giỏ
+                  button.btn.btn-buy-now(type="button" id="buyNow") Mua ngay
+                p.cta-hint Cam kết giao nhanh trong 24h tại nội thành
+      .product-tabs.container
+        ul.tabs
+          li.tab.active(data-tab="desc") Mô tả sản phẩm
+          li.tab(data-tab="spec") Thông tin chi tiết
+        .tab-content
+          .tab-pane#desc
+            +box-head("Nội dung sách")
+            .inner-desc !{product.description}
+          .tab-pane#spec
+            +box-head("Thông tin sản phẩm")
+            ul.spec-list
+              li
+                strong Tên sách:
+                |  #{product.title}
+              if product.category
+                li
+                  strong Danh mục:
+                  |  #{product.category.title}
+              li
+                strong Tác giả:
+                |  #{authorName}
+              li
+                strong Nhà xuất bản:
+                |  #{publisherName}
+              li
+                strong Hình thức:
+                |  #{coverType}
+              li
+                strong Năm xuất bản:
+                |  #{publishYear}
+              li
+                strong Giá bán:
+                |  #{unitPrice.toLocaleString('en-US')}$
+              if basePrice > unitPrice
+                li
+                  strong Giá niêm yết:
+                  |  #{basePrice.toLocaleString('en-US')}$
+              if discountPercent > 0
+                li
+                  strong Ưu đãi:
+                  |  Giảm #{discountPercent}%
+              li
+                strong Tồn kho:
+                |  #{displayStock}
+              li
+                strong Trạng thái:
+                |  Còn hàng
+
+    // Inline script for gallery, qty, total price, tabs, buyNow
+    script.
+      (function(){
+        // Elements
+        const mainImage = document.getElementById('mainImage');
+        const thumbs = document.querySelectorAll('.book-thumb');
+        thumbs.forEach(btn=>{
+          btn.addEventListener('click', function(){
+            const img = this.querySelector('img');
+            if(img && img.src) mainImage.src = img.src;
+            thumbs.forEach(t=>t.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+
+        // Quantity and total price
+        const qtyInput = document.getElementById('quantity');
+        const btnInc = document.getElementById('increase');
+        const btnDec = document.getElementById('decrease');
+        const totalPriceEl = document.getElementById('totalPrice');
+        const unitPrice = Number(#{unitPrice}) || 0;
+        const maxStock = Number(qtyInput.getAttribute('max')) || 9999;
+
+        function formatCurrency(n){
+          return n.toLocaleString('en-US') + '$';
+        }
+
+        function updateTotal(q){
+          const qty = Math.max(1, Math.min(maxStock, Number(q) || 1));
+          const total = Math.round(unitPrice * qty * 100) / 100;
+          totalPriceEl.textContent = formatCurrency(total);
+        }
+
+        function setQty(val){
+          val = Math.max(1, Math.min(maxStock, Number(val) || 1));
+          qtyInput.value = val;
+          updateTotal(val);
+        }
+
+        btnInc.addEventListener('click', ()=> setQty(Number(qtyInput.value) + 1));
+        btnDec.addEventListener('click', ()=> setQty(Number(qtyInput.value) - 1));
+        qtyInput.addEventListener('change', ()=> setQty(qtyInput.value));
+        qtyInput.addEventListener('input', ()=> {
+          // live update but keep within bounds
+          let v = Number(qtyInput.value) || 1;
+          if(v < 1) v = 1;
+          if(v > maxStock) v = maxStock;
+          updateTotal(v);
+        });
+
+        // Initialize total
+        updateTotal(qtyInput.value);
+
+        // Tabs
+        document.querySelectorAll('.tab').forEach(tab=>{
+          tab.addEventListener('click', function(){
+            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+            this.classList.add('active');
+            const target = this.getAttribute('data-tab');
+            document.querySelectorAll('.tab-pane').forEach(p=>p.style.display='none');
+            const pane = document.getElementById(target === 'desc' ? 'desc' : 'spec');
+            if(pane) pane.style.display = 'block';
+          });
+        });
+
+        // Buy now: submit form with buyNowFlag
+        const buyNowBtn = document.getElementById('buyNow');
+        const buyForm = document.querySelector('.buy-form');
+        if(buyNowBtn && buyForm){
+          buyNowBtn.addEventListener('click', function(){
+            let input = buyForm.querySelector('input[name="buyNowFlag"]');
+            if(!input){
+              input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'buyNowFlag';
+              buyForm.appendChild(input);
+            }
+            input.value = '1';
+            buyForm.submit();
+          });
+        }
+      })();
+  else
+    .container
+      p Không tìm thấy sản phẩm.

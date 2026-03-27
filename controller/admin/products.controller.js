@@ -8,6 +8,7 @@ const systemConfig=require("../../config/system.js");
 const validate=require("../../validates/admin/products.validate.js")
 
 const productCategory=require('../../models/products-category.model');
+const Account=require("../../models/account.model.js");
 const createTreeHelper=require("../../helpers/create-tree.js")
 //[GET] admin/products
 module.exports.products= async (req,res)=>{
@@ -60,8 +61,42 @@ if(req.query.sortKey && req.query.sortValue){
    .sort(sort)
    .limit(objectPagination.limitPages)
    .skip(objectPagination.skip);
-   
+   //tim ra nguoi tao va cap nhat lan cuoi
+ for (const product of products) {
+  // Người tạo
+  const user = await Account.findOne({
+    _id: product.createdBy.account_id,
+  });
+  if (user) {
+    product.accountFullname = user.fullName;
+    console.log("Ten:---",product.accountFullname);
+  }
 
+  // Lấy phần tử cập nhật cuối cùng
+  const updatedBy = product.updatedBy && product.updatedBy.length
+    ? product.updatedBy[product.updatedBy.length - 1]
+    : null;
+
+  if (updatedBy) {
+    const userUpdate = await Account.findOne({
+      _id: updatedBy.account_id
+    });
+
+    if (userUpdate) {
+      // Gán tên người cập nhật vào product.updatedBy (mảng là object nên có thể thêm thuộc tính)
+      product.updatedBy.account2Fullname = userUpdate.fullName;
+      // Gán luôn updatedAt để Pug có thể dùng item.updatedBy.updatedAt
+      product.updatedBy.updatedAt = updatedBy.updatedAt;
+    }
+   console.log("san pham :",product);
+    console.log("Thong tin:-------", updatedBy);
+    console.log("product.updatedBy.account2Fullname:", product.updatedBy.account2Fullname);
+  }
+}
+
+  
+    
+  
    res.render('admin/pages/products/products.pug',{
     pageTitle:"TRANG SAN PHAM",
     products:products,
@@ -74,11 +109,16 @@ if(req.query.sortKey && req.query.sortValue){
 module.exports.changeStatus=async (req,res)=>{
     const status=req.params.status;
     const id=req.params.id;
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         
         return res.redirect("/admin/products");
 }
-    await Product.updateOne({_id : id},{status:status});
+    const updatedBy={
+           account_id:res.locals.user.id,
+           updatedAt:new Date()
+      }
+    await Product.updateOne({_id : id},{status:status,$push:{updatedBy:updatedBy}});
     req.flash('success',"Cập nhật trạng thái thành công!")
         
       res.redirect(req.get("Referrer") || "/admin/products");
@@ -91,21 +131,27 @@ module.exports.changeStatus=async (req,res)=>{
 module.exports.changeMulti=async (req,res)=>{
    const type=req.body.type;
    const ids=req.body.ids.split(", ");
-   
+    const updatedBy={
+           account_id:res.locals.user.id,
+           updatedAt:new Date()
+      }
    switch (type){
       case "active":
-         await Product.updateMany({ _id :{$in : ids}},{status : "active"});
+         await Product.updateMany({ _id :{$in : ids}},{status : "active",$push:{updatedBy:updatedBy}});
          req.flash("success",`Cập nhật thành công trạng thái của ${ids.length} sản phẩm`);
          break;
       case "inactive":
-         await Product.updateMany({ _id :{$in : ids}},{status : "inactive"});
+         await Product.updateMany({ _id :{$in : ids}},{status : "inactive",$push:{updatedBy:updatedBy}});
           req.flash("success",`Cập nhật thành công trạng thái của ${ids.length} sản phẩm`);
          break;
       case "delete-all":
          // await Product.deleteMany({_id:{$in:ids}},)
          await Product.updateMany({_id :{$in:ids}},{
             deleted:true,
-            deletedDate:new Date()
+            deletedBy:{
+                  account_id:res.locals.user.id,
+                  deletedAt:new Date()
+            }
          })
           req.flash("success",`Xóa thành công  ${ids.length} sản phẩm`);
          break;
@@ -134,7 +180,11 @@ module.exports.deleteProduct=async (req,res)=>{
 //   await Product.deleteOne({_id : id});
   await Product.updateOne({_id : id},{
     deleted:true,
-    deletedAt:new Date()
+   //  deletedAt:new Date()
+   deletedBy:{
+      account_id:res.locals.user.id,
+      deletedAt:new Date()
+   }
    });
     req.flash("success",`Xóa thành công sản phẩm`);
 
@@ -142,7 +192,7 @@ module.exports.deleteProduct=async (req,res)=>{
 };
 //[GET] /admin/products/create
 module.exports.create= async (req,res)=>{
-
+ 
     const find={
       deleted:false
    }
@@ -161,7 +211,11 @@ module.exports.create= async (req,res)=>{
 };
 //[POST] /admin/products/create
 module.exports.createPost= async (req,res)=>{
-   req.body.price=parseFloat(req.body.price);
+  
+   const permission=res.locals.role.permission;
+   if(permission.includes("products_create")){
+      console.log("id productcategory:--------------",req.body.product_category_id);
+         req.body.price=parseFloat(req.body.price);
    req.body.discountPercentage=parseFloat( req.body.discountPercentage);
    req.body.stock=parseInt( req.body.stock);
    if(req.body.position == ""){
@@ -173,10 +227,18 @@ module.exports.createPost= async (req,res)=>{
 
     
 
-
+   req.body.createdBy={
+      account_id:res.locals.user.id
+   };
+   // console.log("Tai khoan dang nhap vao :",req.body);
       const product =new Product(req.body);
       await product.save();
      res.redirect(`${systemConfig.prefixAdmin}/products`);
+   }
+   else{
+      return;
+   }
+  
 
 };
 //[GET] /admin/products/edit
@@ -219,9 +281,16 @@ module.exports.editPost= async (req,res)=>{
    // if(req.file){
    //       //  req.body.thumbnail=(`/uploads/${req.file.filename}`);
    // }
-   console.log(req.body)
+   // console.log(req.body) 
     try {
-       await Product.updateOne({_id:id},req.body);
+      const updatedBy={
+           account_id:res.locals.user.id,
+           updatedAt:new Date()
+      }
+       await Product.updateOne({_id:id},{
+         ...req.body,
+         $push:{updatedBy:updatedBy}
+      });
    req.flash("success","Chỉnh sửa thành công");
    res.redirect(`${systemConfig.prefixAdmin}/products`);
     } catch (error) {

@@ -1,0 +1,123 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug 
+
+block main 
+    
+    h1(class="mb-4") Chỉnh sửa tài khoản
+    +alert-error(5000)
+    
+    if(roles) 
+
+        form(
+            action=`${prefixAdmin}/accounts/edit/${data.id}?_method=PATCH`
+            method="POST"
+            enctype="multipart/form-data"
+        )
+            div(class="form-group")
+                label(for="fullName") Họ và tên *
+                input(
+                    type="text"
+                    class="form-control"
+                    id="fullName"
+                    name="fullName" 
+                    required
+                    value=user.fullName
+                )
+
+            div(class="form-group")
+                label(for="email") Email *
+                input(
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email" 
+                    required
+                    value=user.email
+                )
+
+            div(class="form-group")
+                label(for="password") Mật khẩu *
+                input(
+                    type="text"
+                    class="form-control"
+                    id="password"
+                    name="password" 
+                    value=user.password
+                    
+                )
+            
+            div(class="form-group")
+                label(for="phone") Số điện thoại
+                input(
+                    type="number"
+                    class="form-control"
+                    id="phone"
+                    name="phone" 
+                    value=user.phone
+                    
+                ) 
+
+            
+            div(
+                class="form-group"
+                upload-image 
+            )
+                label(
+                    for="avatar"
+                ) Avatar 
+                input(
+                    type="file"
+                    class="form-control-file"
+                    id="avatar"
+                    name ="avatar"
+                    accept ="image/*"
+                    upload-image-input 
+
+                )
+                img(
+                    src=user.avatar
+                    class="image-review"
+                    upload-image-review
+                )
+                
+            div(class="form-group") 
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Chỉnh sửa
+       
+        //- CSS nhúng trực tiếp
+        style.
+            /* preview image */
+            .image-review {
+                display: block;
+                max-width: 240px;
+                max-height: 240px;
+                width: auto;
+                height: auto;
+                object-fit: cover;
+                border-radius: 6px;
+                border: 1px solid #e0e0e0;
+            }
+
+            /* khung input file */
+            [upload-image] {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            /* nút, label nhỏ gọn */
+            label[for="avatar"] {
+                margin-bottom: 6px;
+                font-weight: 600;
+            }
+
+            /* responsive trên màn hình nhỏ */
+            @media (max-width: 576px) {
+                .image-review {
+                max-width: 160px;
+                max-height: 160px;
+                }
+            }

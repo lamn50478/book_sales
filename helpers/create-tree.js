@@ -16,7 +16,7 @@ const createTree=(arr , parentId="",count={value:0})=>{
          
         }
       });
-      console.log(tree)
+      // console.log(tree)
       return tree;
   
 }

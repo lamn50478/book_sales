@@ -1,0 +1,101 @@
+//- mixin product-item(item)
+//-     .col-4.mb-3 
+//-         .product-item 
+//-             .inner-image 
+//-                 img(src=item.thumbnail,alt=item.title) 
+//-             if( item.featured==1) 
+//-                 .inner-featured Nổi bật 
+//-             .inner-content 
+//-                 h3.inner-title 
+//-                     a(href=`products/${item.id}`) #{item.title} 
+//-                 .inner-price-new #{item.priceNew}$
+//-                 .inner-price-old #{item.price}$
+//-                 .inner-discount #{item.discountPercentage}%
+//- mixin product-item2(item)
+//-     .col-4.mb-3 
+//-         .product-item 
+//-             .inner-image 
+//-                 img(src=item.thumbnail,alt=item.title) 
+//-             if( item.featured==1) 
+//-                 .inner-featured Nổi bật 
+//-             .inner-content 
+//-                 h3.inner-title 
+//-                     a(href=`/products/category/detail/${item.slug}`) #{item.title} 
+//-                 .inner-price-new #{item.priceNew}$
+//-                 .inner-price-old #{item.price}$
+//-                 .inner-discount #{item.discountPercentage}%
+mixin product-item(item)
+  .book-card
+    a.book-card-inner(href=`/products/${item.id}`)
+      .book-cover-wrap
+        if item.thumbnail
+          img.book-cover(src=item.thumbnail alt=item.title loading="lazy")
+        else
+          .book-cover-placeholder
+            span 📖
+        .book-cover-shine
+        if item.featured == 1
+          .book-featured-badge ✦ Nổi bật
+        .book-overlay
+          span.book-overlay-cta
+            svg(viewBox="0 0 20 20" fill="currentColor" width="14" height="14")
+              path(d="M10 12a2 2 0 100-4 2 2 0 000 4z")
+              path(fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd")
+            | &nbsp;Xem nhanh
+      .book-spine
+      .book-info
+        if item.author
+          p.book-author= item.author
+        else
+          p.book-author &nbsp;
+        h4.book-name= item.title
+        .book-price-row
+          if item.priceNew && item.priceNew < item.price
+            span.book-price-new= `${Number(item.priceNew).toLocaleString('vi-VN')}₫`
+            span.book-price-old= `${Number(item.price).toLocaleString('vi-VN')}₫`
+          else
+            span.book-price-new= `${Number(item.price).toLocaleString('vi-VN')}₫`
+        if item.discountPercentage && item.discountPercentage > 0
+          .book-discount-pill -#{item.discountPercentage}%
+    a.book-buy-btn(href=`/products/${item.id}`)
+      svg(viewBox="0 0 20 20" fill="currentColor")
+        path(d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z")
+      | Mua ngay
+
+mixin product-item2(item)
+  .book-card
+    a.book-card-inner(href=`/products/category/detail/${item.slug}`)
+      .book-cover-wrap
+        if item.thumbnail
+          img.book-cover(src=item.thumbnail alt=item.title loading="lazy")
+        else
+          .book-cover-placeholder
+            span 📖
+        .book-cover-shine
+        if item.featured == 1
+          .book-featured-badge ✦ Nổi bật
+        .book-overlay
+          span.book-overlay-cta
+            svg(viewBox="0 0 20 20" fill="currentColor" width="14" height="14")
+              path(d="M10 12a2 2 0 100-4 2 2 0 000 4z")
+              path(fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd")
+            | &nbsp;Xem nhanh
+      .book-spine
+      .book-info
+        if item.author
+          p.book-author= item.author
+        else
+          p.book-author &nbsp;
+        h4.book-name= item.title
+        .book-price-row
+          if item.priceNew && item.priceNew < item.price
+            span.book-price-new= `${Number(item.priceNew).toLocaleString('vi-VN')}₫`
+            span.book-price-old= `${Number(item.price).toLocaleString('vi-VN')}₫`
+          else
+            span.book-price-new= `${Number(item.price).toLocaleString('vi-VN')}₫`
+        if item.discountPercentage && item.discountPercentage > 0
+          .book-discount-pill -#{item.discountPercentage}%
+    a.book-buy-btn(href=`/products/category/detail/${item.slug}`)
+      svg(viewBox="0 0 20 20" fill="currentColor")
+        path(d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z")
+      | Mua ngay

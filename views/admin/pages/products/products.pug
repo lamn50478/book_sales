@@ -5,111 +5,138 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug 
 include ../../mixins/alert.pug 
 include ../../mixins/sort.pug 
+include ../../mixins/moment.pug
 
 
 block main 
   +alert-success(5000) 
   +alert-error(5000) 
-  h1 Trang danh sach san pham ne
- 
-  .card-header Bo loc va tim kiem 
-    .card-body 
-      .row 
-        .col-6 
-          +fillterStatus(fillterStatus)
-        .col-6 
-          +search(keyword)
+  if(role.permission.includes("products_view"))
+  
+    h1 Trang danh sach san pham ne
+  
+    .card-header Bo loc va tim kiem 
+      .card-body 
+        .row 
+          .col-6 
+            +fillterStatus(fillterStatus)
+          .col-6 
+            +search(keyword)
 
-  .card.mb-3 
-    .card-header Sắp xếp 
-    .card-body 
-      .row 
-        .col-4 
-          +sort()
+    .card.mb-3 
+      .card-header Sắp xếp 
+      .card-body 
+        .row 
+          .col-4 
+            +sort()
 
-  .card.mb-3 
-    .card-header Danh sach
-    .card-body 
-      .row
-        .col-8
-          +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
-        .col-4 
-          a(
-            href=`${prefixAdmin}/products/create`
-            class="btn btn-outline-success"
-          ) + Thêm mới 
-          
-      table(
-        class="table table-hover table-sm "
-        checkbox-multi
-      )
-        thead 
-          tr 
-            th 
-              input(type="checkbox" name="checkall")
-            th STT 
-            th Image 
-            th Title 
-            th Price 
-             th Position
-            th Status 
-            th Action 
-
-        tbody 
-          each item, index in products
+    .card.mb-3 
+      .card-header Danh sach
+      .card-body 
+        .row
+          .col-8
+            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+          .col-4 
+            a(
+              href=`${prefixAdmin}/products/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới 
+            
+        table(
+          class="table table-hover table-sm "
+          checkbox-multi
+        )
+          thead 
             tr 
-              td 
-                input(type="checkbox" name="id" value=item.id)
-              td #{pagination.limitPages*(pagination.currentPage-1)+(index+1)}
-              td 
-                .inner-image 
-                  img(
-                    src=item.thumbnail
-                    alt=item.title
-                    style="width: 100px; height:auto"
+              th 
+                input(type="checkbox" name="checkall")
+              th STT 
+              th Image 
+              th Title 
+              th Price 
+              th Position
+              th Người tạo 
+              th Người cập nhật
+              th Status
+              
+              th Action 
+
+          tbody 
+            each item, index in products
+              tr 
+                td 
+                  input(type="checkbox" name="id" value=item.id)
+                td #{pagination.limitPages*(pagination.currentPage-1)+(index+1)}
+                td 
+                  .inner-image 
+                    img(
+                      src=item.thumbnail
+                      alt=item.title
+                      style="width: 100px; height:auto"
+                    )
+                td #{item.title}
+                td #{item.price}$
+                td 
+                  input(
+                    type="number",
+                    style="width:60px",
+                    min=1,
+                    value=item.position,
+                    name='position'
+
                   )
-              td #{item.title}
-              td #{item.price}$
-              td 
-                input(
-                  type="number",
-                  style="width:60px",
-                  min=1,
-                  value=item.position,
-                  name='position'
+                //- Người tạo (cột tương ứng với header "Người tạo")
+                td
+                  p #{item.accountFullname || 'Chưa có'}
+                  p
+                    +formatDate(item.createdBy.createdAt)
 
-                )
-              td 
-                if item.status == "active"
-                  a(
-                    data-status=item.status
-                    data-id=item._id
-                    button-change-status
-                    href=`javascript:;`
-                    class="badge badge-success") Hoat dong 
-                else 
-                  a(
-                    data-status=item.status
-                    data-id=item._id
-                    button-change-status
-                    href=`javascript:;`
-                    class="badge badge-danger") Khong Hoat dong 
-              td 
-                a(
-                    class="btn btn-secondary btn-sm"
-                    href=`${prefixAdmin}/products/detail/${item.id}`
-                    ) Chi tiết 
-                a(
-                  class="btn btn-warning btn-sm ml-1"
-                  href=`${prefixAdmin}/products/edit/${item.id}`
-                  ) Sửa
-                button(
-                  class="btn btn-danger btn-sm ml-1"
-                  button-delete 
-                  data-id=item.id
-                  ) Xóa
+                //- Người cập nhật (cột tương ứng với header "Người cập nhật")
+                td
+                  - const last = item.updatedBy && item.updatedBy.length ? item.updatedBy[item.updatedBy.length - 1] : null
+                  if last && (last.account2Fullname || item.updatedBy.account2Fullname)
+                    //- ưu tiên phần tử cuối nếu có account2Fullname, fallback vào product.updatedBy.account2Fullname
+                    p #{ last.account2Fullname || item.updatedBy.account2Fullname }
+                    p
+                      +formatDate(last.updatedAt || item.updatedBy.updatedAt)
+                  else
+                    p Chưa có cập nhật
+                td
+                  if item.status == "active"
+                    a(
+                      data-status=item.status
+                      data-id=item._id
+                      button-change-status
+                      href=`javascript:;`
+                      class="badge badge-success") Hoạt động 
+                  else 
+                    a(
+                      data-status=item.status
+                      data-id=item._id
+                      button-change-status
+                      href=`javascript:;`
+                      class="badge badge-danger") Không hoạt động
+                td 
+                  if(role.permission.includes("products_view"))
+                    a(
+                        class="btn btn-secondary btn-sm"
+                        href=`${prefixAdmin}/products/detail/${item.id}`
+                        ) Chi tiết 
+                  if(role.permission.includes("products_edit"))
+                    a(
+                      class="btn btn-warning btn-sm ml-1"
+                      href=`${prefixAdmin}/products/edit/${item.id}`
+                      ) Sửa
+                  if(role.permission.includes("products_delete"))
+                    button(
+                      class="btn btn-danger btn-sm ml-1"
+                      button-delete 
+                      data-id=item.id
+                      ) Xóa
 
-  +pagination(pagination)
+    +pagination(pagination)
+  else 
+    h1 You do not have permission
   form(
     action=""
     data-path=`${prefixAdmin}/products/change-status`

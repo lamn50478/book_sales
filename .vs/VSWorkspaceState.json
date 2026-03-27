@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\middeware",
+    "\\middeware\\admin",
+    "\\validates",
+    "\\validates\\admin",
+    "\\views",
+    "\\views\\admin",
+    "\\views\\admin\\layouts",
+    "\\views\\admin\\pages",
+    "\\views\\admin\\pages\\auth"
+  ],
+  "PreviewInSolutionExplorer": false
+}
