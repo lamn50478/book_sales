@@ -4,7 +4,10 @@ include ../../layouts/mixins/alert.pug
 
 block main
   +alert-success(3000)
+  a.btn.btn-arrow(href="/products" role="button" aria-label="Quay lại" button-go-back)
+                    span.btn-arrow-label Trở lại
   if product
+    //- ── Data preparation ──────────────────────────────────
     - const images = (product.images && product.images.length) ? product.images : [product.thumbnail];
     - const ratingValue = (typeof product.rating !== 'undefined' && product.rating !== null) ? Number(product.rating) : 4.5;
     - const unitPrice = Number(product.priceNew || product.newPrice || product.price) || 0;
@@ -16,212 +19,391 @@ block main
     - const publisherName = product.publisher || 'NXB Trẻ';
     - const coverType = product.coverType || 'Bìa mềm';
     - const publishYear = product.publishYear || '2025';
-    
-    .book-detail-page
+
+    article.bkd-page(
+      itemscope
+      itemtype="https://schema.org/Book"
+      aria-label=`Chi tiết sách: ${product.title}`
+    )
+
+      //- ── BREADCRUMB ──────────────────────────────────────
+      nav.bkd-breadcrumb(aria-label="Vị trí trang")
+        .container
+          ol.bkd-bc-list
+            li
+              a.bkd-bc-link(href="/") Trang chủ
+            li.bkd-bc-sep(aria-hidden="true") ›
+            li
+              a.bkd-bc-link(href="/products") Sách thiếu nhi
+            if product.category
+              li.bkd-bc-sep(aria-hidden="true") ›
+              li
+                a.bkd-bc-link(href=`/products/category/${product.category.slug}`) #{product.category.title}
+            li.bkd-bc-sep(aria-hidden="true") ›
+            li.bkd-bc-current(aria-current="page" itemprop="name") #{product.title}
+
+      //- ── MAIN LAYOUT ─────────────────────────────────────
       .container
-        
-        nav.book-breadcrumb(aria-label="Breadcrumb")
-          a(href="/") Trang chủ
-          span /
-          if product.category
-            a(href=`/products/category/${product.category.slug}`) #{product.category.title}
-            span /
-          span.active #{product.title}
-        .book-main
-          .book-gallery
-            .book-main-image
+        .bkd-main
+
+          //- ══ LEFT: Gallery ═══════════════════════════════
+          .bkd-gallery-col
+            .bkd-gallery
+
+              //- Discount ribbon
               if discountPercent > 0
-                span.book-discount-badge -#{discountPercent}%
-              img#mainImage(src=images[0] alt=product.title loading="lazy")
-            .book-thumbs
-              each imgUrl, idx in images
-                button.book-thumb(type="button" class=idx === 0 ? "active" : "" data-index=idx aria-label=`Xem ảnh ${idx+1}`)
-                  img(src=imgUrl alt=`Ảnh phụ ${idx+1}` loading="lazy")
-            .book-services
-              .service-item
-                span.service-dot
-                span Giao nhanh 2h nội thành
-              .service-item
-                span.service-dot
-                span Đổi trả trong 7 ngày nếu lỗi
-              .service-item
-                span.service-dot
-                span Hoàn tiền 100% nếu hàng giả
-          .book-info
-            .book-info-top
-              if product.category
-                a.book-category(href=`/products/category/${product.category.slug}`) #{product.category.title}
-              h1.book-title #{product.title}
-              .book-meta
-                .rating-area
-                  .rating-stars(role="img" aria-label=`Đánh giá ${ratingValue} trên 5`)
-                    - for (var i = 1; i <= 5; i++)
-                      if i <= Math.round(ratingValue)
-                        span.star.filled
-                          svg(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
-                            path(d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.168L12 18.896l-7.336 3.87 1.402-8.168L.132 9.21l8.2-1.192L12 .587z")
-                      else
-                        span.star.empty
-                          svg(width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
-                            path(d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z")
-                  span.rating-text #{ratingValue.toFixed(1)} / 5
-                span.meta-divider |
-                span.stock-text Còn #{displayStock}
-              .book-price-box
-                .book-price-main #{unitPrice.toLocaleString('en-US')}$
-                if basePrice > unitPrice
-                  .book-price-old #{basePrice.toLocaleString('en-US')}$
+                .bkd-ribbon
+                  span -#{discountPercent}%
+
+              //- Main image
+              .bkd-main-img-wrap
+                img#bkdMainImg.bkd-main-img(
+                  src=images[0]
+                  alt=`Bìa sách ${product.title}`
+                  itemprop="image"
+                  loading="eager"
+                )
+                //- Zoom hint
+                .bkd-img-hint
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true")
+                    circle(cx="11" cy="11" r="8")
+                    line(x1="21" y1="21" x2="16.65" y2="16.65")
+                    line(x1="11" y1="8" x2="11" y2="14")
+                    line(x1="8" y1="11" x2="14" y2="11")
+                  span Xem chi tiết
+
+              //- Thumbnails
+              if images.length > 1
+                .bkd-thumbs(role="list" aria-label="Hình ảnh sản phẩm")
+                  each imgUrl, idx in images
+                    button.bkd-thumb(
+                      type="button"
+                      role="listitem"
+                      class=idx === 0 ? 'bkd-thumb--active' : ''
+                      data-index=idx
+                      aria-label=`Ảnh ${idx + 1}`
+                      aria-pressed=idx === 0 ? 'true' : 'false'
+                    )
+                      img(src=imgUrl alt=`Ảnh ${idx + 1}` loading="lazy")
+
+            //- Services (bên dưới gallery)
+            .bkd-services(aria-label="Dịch vụ & cam kết")
+              .bkd-service-item
+                span.bkd-service-icon(aria-hidden="true") 🚀
+                .bkd-service-text
+                  strong Giao nhanh 2h
+                  span Nội thành toàn quốc
+              .bkd-service-item
+                span.bkd-service-icon(aria-hidden="true") 🔄
+                .bkd-service-text
+                  strong Đổi trả 7 ngày
+                  span Nếu hàng lỗi từ NXB
+              .bkd-service-item
+                span.bkd-service-icon(aria-hidden="true") 🛡️
+                .bkd-service-text
+                  strong Hoàn tiền 100%
+                  span Cam kết hàng chính hãng
+              .bkd-service-item
+                span.bkd-service-icon(aria-hidden="true") 🎁
+                .bkd-service-text
+                  strong Gói quà miễn phí
+                  span Dành cho bé yêu
+
+          //- ══ RIGHT: Info + Buy ════════════════════════════
+          .bkd-info-col
+
+            //- Info card
+            .bkd-info-card
+
+              //- Category + badges row
+              .bkd-badges-row
+                if product.category
+                  a.bkd-cat-pill(href=`/products/category/${product.category.slug}` itemprop="genre")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true")
+                      path(d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20")
+                      path(d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z")
+                    | #{product.category.title}
                 if discountPercent > 0
-                  .book-price-save Tiết kiệm #{discountPercent}%
-              ul.book-highlights
-                li Tác giả: #{authorName}
-                li Nhà xuất bản: #{publisherName}
-                li Hình thức bìa: #{coverType}
-            aside.buy-box
-              form.buy-form(action=`/cart/add/${product.id}` method="POST" aria-label=`Thêm ${product.title} vào giỏ hàng`)
-                .buy-row
-                  label.qty-label(for="quantity") Số lượng
-                  .qty-control
-                    button.qty-btn(type="button" id="decrease" aria-label="Giảm số lượng") −
-                    input#quantity.qty-input(type="number" name="quantity" value="1" min="1" max=stockValue aria-required="true")
-                    button.qty-btn(type="button" id="increase" aria-label="Tăng số lượng") +
-                .total-price
-                  span.total-label Tạm tính
-                  span#totalPrice.total-value #{unitPrice.toLocaleString('en-US')}$
-                .buy-actions
-                  button.btn.btn-buy(type="submit") Thêm vào giỏ
-                  button.btn.btn-buy-now(type="button" id="buyNow") Mua ngay
-                p.cta-hint Cam kết giao nhanh trong 24h tại nội thành
-      .product-tabs.container
-        ul.tabs
-          li.tab.active(data-tab="desc") Mô tả sản phẩm
-          li.tab(data-tab="spec") Thông tin chi tiết
-        .tab-content
-          .tab-pane#desc
-            +box-head("Nội dung sách")
-            .inner-desc !{product.description}
-          .tab-pane#spec
-            +box-head("Thông tin sản phẩm")
-            ul.spec-list
-              li
-                strong Tên sách:
-                |  #{product.title}
+                  span.bkd-hot-badge 🔥 HOT -#{discountPercent}%
+
+              //- Title
+              h1.bkd-title(itemprop="name") #{product.title}
+
+              //- Author + meta row
+              .bkd-meta-row
+                span.bkd-author
+                  | Tác giả:&nbsp;
+                  strong(itemprop="author") #{authorName}
+                span.bkd-meta-sep(aria-hidden="true") ·
+                span.bkd-publisher NXB #{publisherName}
+                span.bkd-meta-sep(aria-hidden="true") ·
+                span.bkd-year #{publishYear}
+
+              //- Rating
+              .bkd-rating-row
+                .bkd-stars(
+                  role="img"
+                  aria-label=`Đánh giá ${ratingValue.toFixed(1)} trên 5 sao`
+                  itemprop="aggregateRating"
+                  itemscope
+                  itemtype="https://schema.org/AggregateRating"
+                )
+                  meta(itemprop="ratingValue" content=ratingValue)
+                  meta(itemprop="bestRating" content="5")
+                  - for (var s = 1; s <= 5; s++)
+                    span.bkd-star(class=s <= Math.round(ratingValue) ? 'bkd-star--full' : (s - 0.5 <= ratingValue ? 'bkd-star--half' : '') aria-hidden="true") ★
+                span.bkd-rating-val #{ratingValue.toFixed(1)}
+                span.bkd-rating-total (48 đánh giá)
+                span.bkd-stock-badge
+                  span.bkd-stock-dot(aria-hidden="true")
+                  | Còn #{displayStock} cuốn
+
+              //- Price box
+              .bkd-price-box
+                .bkd-price-main(itemprop="offers" itemscope itemtype="https://schema.org/Offer")
+                  meta(itemprop="priceCurrency" content="USD")
+                  meta(itemprop="price" content=unitPrice)
+                  span.bkd-price-new #{unitPrice.toLocaleString('en-US')}$
+                  if basePrice > unitPrice
+                    span.bkd-price-old #{basePrice.toLocaleString('en-US')}$
+                if discountPercent > 0
+                  span.bkd-save-chip Tiết kiệm #{discountPercent}%
+
+              //- Feature highlights as pills
+              .bkd-highlights
+                span.bkd-highlight-pill
+                  span(aria-hidden="true") 📖
+                  | Bìa: #{coverType}
+                span.bkd-highlight-pill
+                  span(aria-hidden="true") 🏢
+                  | #{publisherName}
+                span.bkd-highlight-pill
+                  span(aria-hidden="true") 📅
+                  | Năm #{publishYear}
+                span.bkd-highlight-pill
+                  span(aria-hidden="true") ✍️
+                  | #{authorName}
+
+            //- Buy box (sticky)
+            aside.bkd-buy-box(aria-label=`Mua sách ${product.title}`)
+              .bkd-buy-top
+                .bkd-buy-price-row
+                  span.bkd-buy-label Giá bán lẻ
+                  .bkd-buy-prices
+                    strong.bkd-buy-price-main #{unitPrice.toLocaleString('en-US')}$
+                    if basePrice > unitPrice
+                      span.bkd-buy-price-old #{basePrice.toLocaleString('en-US')}$
+
+              form.bkd-buy-form(
+                action=`/cart/add/${product.id}`
+                method="POST"
+                aria-label=`Thêm ${product.title} vào giỏ hàng`
+              )
+                //- Qty control
+                .bkd-qty-row
+                  label.bkd-qty-label(for="bkd-qty") Số lượng
+                  .bkd-qty-ctrl
+                    button.bkd-qty-btn#bkd-dec(type="button" aria-label="Giảm") −
+                    input#bkd-qty.bkd-qty-input(
+                      type="number"
+                      name="quantity"
+                      value="1"
+                      min="1"
+                      max=stockValue
+                      aria-required="true"
+                    )
+                    button.bkd-qty-btn#bkd-inc(type="button" aria-label="Tăng") +
+                  span.bkd-stock-avail Còn #{displayStock} cuốn
+
+                //- Running total
+                .bkd-total-row
+                  span.bkd-total-label Tạm tính
+                  span#bkdTotalPrice.bkd-total-val #{unitPrice.toLocaleString('en-US')}$
+
+                //- CTAs
+                .bkd-cta-row
+                  button.bkd-btn-cart(type="submit")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                      path(d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z")
+                      line(x1="3" y1="6" x2="21" y2="6")
+                      path(d="M16 10a4 4 0 0 1-8 0")
+                    | Thêm vào giỏ
+                  button.bkd-btn-buy(type="button" id="bkdBuyNow")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                      polyline(points="13 17 18 12 13 7")
+                      polyline(points="6 17 11 12 6 7")
+                    | Mua ngay
+
+                p.bkd-cta-hint
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:13px;height:13px;display:inline;vertical-align:middle;margin-right:4px")
+                    path(d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z")
+                  | Giao nhanh trong 24h · Hoàn tiền nếu không đúng mô tả
+
+      //- ── TABS SECTION ──────────────────────────────────
+      .bkd-tabs-section.container
+
+        .bkd-tabs(role="tablist" aria-label="Thông tin sản phẩm")
+          button.bkd-tab.bkd-tab--active(
+            role="tab"
+            type="button"
+            data-tab="desc"
+            aria-selected="true"
+            aria-controls="bkd-pane-desc"
+            id="bkd-tab-desc"
+          )
+            svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true")
+              path(d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z")
+              polyline(points="14 2 14 8 20 8")
+              line(x1="16" y1="13" x2="8" y2="13")
+              line(x1="16" y1="17" x2="8" y2="17")
+              polyline(points="10 9 9 9 8 9")
+            | Nội dung sách
+          button.bkd-tab(
+            role="tab"
+            type="button"
+            data-tab="spec"
+            aria-selected="false"
+            aria-controls="bkd-pane-spec"
+            id="bkd-tab-spec"
+            tabindex="-1"
+          )
+            svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true")
+              circle(cx="12" cy="12" r="3")
+              path(d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14")
+            | Thông tin chi tiết
+
+        .bkd-tab-content
+
+          //- Description pane
+          #bkd-pane-desc.bkd-pane(
+            role="tabpanel"
+            aria-labelledby="bkd-tab-desc"
+          )
+            .bkd-desc-inner(itemprop="description") !{product.description}
+
+          //- Spec pane
+          #bkd-pane-spec.bkd-pane.bkd-pane--hidden(
+            role="tabpanel"
+            aria-labelledby="bkd-tab-spec"
+            aria-hidden="true"
+          )
+            .bkd-spec-grid
+              .bkd-spec-item
+                span.bkd-spec-label Tên sách
+                span.bkd-spec-val #{product.title}
               if product.category
-                li
-                  strong Danh mục:
-                  |  #{product.category.title}
-              li
-                strong Tác giả:
-                |  #{authorName}
-              li
-                strong Nhà xuất bản:
-                |  #{publisherName}
-              li
-                strong Hình thức:
-                |  #{coverType}
-              li
-                strong Năm xuất bản:
-                |  #{publishYear}
-              li
-                strong Giá bán:
-                |  #{unitPrice.toLocaleString('en-US')}$
+                .bkd-spec-item
+                  span.bkd-spec-label Danh mục
+                  span.bkd-spec-val #{product.category.title}
+              .bkd-spec-item
+                span.bkd-spec-label Tác giả
+                span.bkd-spec-val #{authorName}
+              .bkd-spec-item
+                span.bkd-spec-label Nhà xuất bản
+                span.bkd-spec-val #{publisherName}
+              .bkd-spec-item
+                span.bkd-spec-label Hình thức bìa
+                span.bkd-spec-val #{coverType}
+              .bkd-spec-item
+                span.bkd-spec-label Năm xuất bản
+                span.bkd-spec-val #{publishYear}
+              .bkd-spec-item
+                span.bkd-spec-label Giá bán
+                span.bkd-spec-val.bkd-spec-price #{unitPrice.toLocaleString('en-US')}$
               if basePrice > unitPrice
-                li
-                  strong Giá niêm yết:
-                  |  #{basePrice.toLocaleString('en-US')}$
+                .bkd-spec-item
+                  span.bkd-spec-label Giá niêm yết
+                  span.bkd-spec-val
+                    del #{basePrice.toLocaleString('en-US')}$
               if discountPercent > 0
-                li
-                  strong Ưu đãi:
-                  |  Giảm #{discountPercent}%
-              li
-                strong Tồn kho:
-                |  #{displayStock}
-              li
-                strong Trạng thái:
-                |  Còn hàng
+                .bkd-spec-item
+                  span.bkd-spec-label Ưu đãi
+                  span.bkd-spec-val.bkd-spec-discount Giảm #{discountPercent}%
+              .bkd-spec-item
+                span.bkd-spec-label Tồn kho
+                span.bkd-spec-val #{displayStock}
+              .bkd-spec-item
+                span.bkd-spec-label Trạng thái
+                span.bkd-spec-val.bkd-spec-instock ✓ Còn hàng
 
-    // Inline script for gallery, qty, total price, tabs, buyNow
+    //- ── INLINE SCRIPT ─────────────────────────────────────
     script.
-      (function(){
-        // Elements
-        const mainImage = document.getElementById('mainImage');
-        const thumbs = document.querySelectorAll('.book-thumb');
-        thumbs.forEach(btn=>{
-          btn.addEventListener('click', function(){
-            const img = this.querySelector('img');
-            if(img && img.src) mainImage.src = img.src;
-            thumbs.forEach(t=>t.classList.remove('active'));
-            this.classList.add('active');
-          });
-        });
-
-        // Quantity and total price
-        const qtyInput = document.getElementById('quantity');
-        const btnInc = document.getElementById('increase');
-        const btnDec = document.getElementById('decrease');
-        const totalPriceEl = document.getElementById('totalPrice');
-        const unitPrice = Number(#{unitPrice}) || 0;
-        const maxStock = Number(qtyInput.getAttribute('max')) || 9999;
-
-        function formatCurrency(n){
-          return n.toLocaleString('en-US') + '$';
-        }
-
-        function updateTotal(q){
-          const qty = Math.max(1, Math.min(maxStock, Number(q) || 1));
-          const total = Math.round(unitPrice * qty * 100) / 100;
-          totalPriceEl.textContent = formatCurrency(total);
-        }
-
-        function setQty(val){
-          val = Math.max(1, Math.min(maxStock, Number(val) || 1));
-          qtyInput.value = val;
-          updateTotal(val);
-        }
-
-        btnInc.addEventListener('click', ()=> setQty(Number(qtyInput.value) + 1));
-        btnDec.addEventListener('click', ()=> setQty(Number(qtyInput.value) - 1));
-        qtyInput.addEventListener('change', ()=> setQty(qtyInput.value));
-        qtyInput.addEventListener('input', ()=> {
-          // live update but keep within bounds
-          let v = Number(qtyInput.value) || 1;
-          if(v < 1) v = 1;
-          if(v > maxStock) v = maxStock;
-          updateTotal(v);
-        });
-
-        // Initialize total
-        updateTotal(qtyInput.value);
-
-        // Tabs
-        document.querySelectorAll('.tab').forEach(tab=>{
-          tab.addEventListener('click', function(){
-            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-            this.classList.add('active');
-            const target = this.getAttribute('data-tab');
-            document.querySelectorAll('.tab-pane').forEach(p=>p.style.display='none');
-            const pane = document.getElementById(target === 'desc' ? 'desc' : 'spec');
-            if(pane) pane.style.display = 'block';
-          });
-        });
-
-        // Buy now: submit form with buyNowFlag
-        const buyNowBtn = document.getElementById('buyNow');
-        const buyForm = document.querySelector('.buy-form');
-        if(buyNowBtn && buyForm){
-          buyNowBtn.addEventListener('click', function(){
-            let input = buyForm.querySelector('input[name="buyNowFlag"]');
-            if(!input){
-              input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = 'buyNowFlag';
-              buyForm.appendChild(input);
+      (function () {
+        /* ── Gallery ── */
+        const mainImg = document.getElementById('bkdMainImg');
+        document.querySelectorAll('.bkd-thumb').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const src = this.querySelector('img').src;
+            if (mainImg && src) {
+              mainImg.style.opacity = '0';
+              setTimeout(() => { mainImg.src = src; mainImg.style.opacity = '1'; }, 140);
             }
-            input.value = '1';
+            document.querySelectorAll('.bkd-thumb').forEach(t => {
+              t.classList.remove('bkd-thumb--active');
+              t.setAttribute('aria-pressed', 'false');
+            });
+            this.classList.add('bkd-thumb--active');
+            this.setAttribute('aria-pressed', 'true');
+          });
+        });
+
+        /* ── Qty + Total ── */
+        const qtyInput = document.getElementById('bkd-qty');
+        const incBtn   = document.getElementById('bkd-inc');
+        const decBtn   = document.getElementById('bkd-dec');
+        const totalEl  = document.getElementById('bkdTotalPrice');
+        const unitPrice = !{unitPrice};
+        const maxStock  = Number(qtyInput.getAttribute('max')) || 9999;
+
+        function fmt(n) { return n.toLocaleString('en-US') + '$'; }
+        function setQty(v) {
+          v = Math.max(1, Math.min(maxStock, Number(v) || 1));
+          qtyInput.value = v;
+          totalEl.textContent = fmt(Math.round(unitPrice * v * 100) / 100);
+        }
+        incBtn.addEventListener('click', () => setQty(+qtyInput.value + 1));
+        decBtn.addEventListener('click', () => setQty(+qtyInput.value - 1));
+        qtyInput.addEventListener('change', () => setQty(qtyInput.value));
+        qtyInput.addEventListener('input',  () => setQty(qtyInput.value));
+        setQty(1);
+
+        /* ── Tabs ── */
+        const tabs  = document.querySelectorAll('.bkd-tab');
+        const panes = document.querySelectorAll('.bkd-pane');
+        tabs.forEach(tab => {
+          tab.addEventListener('click', function () {
+            tabs.forEach(t => {
+              t.classList.remove('bkd-tab--active');
+              t.setAttribute('aria-selected', 'false');
+              t.setAttribute('tabindex', '-1');
+            });
+            panes.forEach(p => {
+              p.classList.add('bkd-pane--hidden');
+              p.setAttribute('aria-hidden', 'true');
+            });
+            this.classList.add('bkd-tab--active');
+            this.setAttribute('aria-selected', 'true');
+            this.removeAttribute('tabindex');
+            const target = document.getElementById('bkd-pane-' + this.dataset.tab);
+            if (target) { target.classList.remove('bkd-pane--hidden'); target.setAttribute('aria-hidden', 'false'); }
+          });
+        });
+
+        /* ── Buy now ── */
+        const buyNowBtn = document.getElementById('bkdBuyNow');
+        const buyForm   = document.querySelector('.bkd-buy-form');
+        if (buyNowBtn && buyForm) {
+          buyNowBtn.addEventListener('click', () => {
+            let inp = buyForm.querySelector('input[name="buyNowFlag"]');
+            if (!inp) { inp = Object.assign(document.createElement('input'), { type: 'hidden', name: 'buyNowFlag' }); buyForm.appendChild(inp); }
+            inp.value = '1';
             buyForm.submit();
           });
         }
       })();
+
   else
-    .container
-      p Không tìm thấy sản phẩm.
+    .container.bkd-not-found
+      .bkd-not-found-inner
+        p.bkd-not-found-text 😔 Không tìm thấy sản phẩm này.
+        a.bkd-not-found-cta(href="/products") Quay lại cửa hàng

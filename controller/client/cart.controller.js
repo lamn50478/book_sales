@@ -35,6 +35,26 @@ module.exports.cart=async (req,res)=>{
       
     })
 }
+//[DELETE] /cart/delete/:productId
+module.exports.cartDelete=async (req,res)=>{
+
+    const productId=req.params.productId;
+    const cartId=req.cookies.cartId;
+    console.log(productId);
+    await Cart.updateOne({
+        _id:cartId
+    },{
+        "$pull":{
+            products:{
+                "product_id":productId
+            }
+        }
+    });
+
+  req.flash("success","Xóa sản phẩm thành công");
+  res.redirect(`/cart`);
+}
+
 //[POST] /cart/add/:productId
 module.exports.addPost=async (req,res)=>{
     const cartId=req.cookies.cartId;
@@ -72,4 +92,43 @@ module.exports.addPost=async (req,res)=>{
     
     req.flash("success",`Thêm thành công ${quantity} sản phẩm vào giỏ hàng`);
     res.redirect(`/products/${productId}`);
+}
+
+//[POST] /cart/update/:productId/quantity
+module.exports.cartUpdate=async (req,res)=>{
+    const cartId=req.cookies.cartId;
+    const productId=req.params.productId;
+    const quantity=req.params.quantity;
+    console.log(quantity);
+    const cart=await Cart.findOne({
+        _id:cartId
+    });
+    
+    const existItem= cart.products.find(item =>item.product_id==productId);
+    if(existItem){
+       
+        await Cart.updateOne({
+            _id:cartId,
+            'products.product_id':productId
+        },{
+            'products.$.quantity':quantity
+        });
+    }
+    else{
+        const objectCart={
+        product_id:productId,
+        quantity:quantity
+    };
+    await Cart.updateOne({
+        _id:cartId
+    },{
+        $push:{
+            products:objectCart
+        }
+    });
+    }
+    
+    
+    req.flash("success",`Cập nhật thành công ${quantity} sản phẩm vào giỏ hàng`);
+    res.redirect(`/cart`);
 }

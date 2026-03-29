@@ -1,60 +1,259 @@
-extends ../../layouts/default.pug 
+//- extends ../../layouts/default.pug 
+//- include ../../layouts/mixins/box-head.pug
+//- include ../../layouts/mixins/product-layout.pug
+//- include ../../layouts/mixins/alert.pug
+
+//- block main 
+//-     +alert-success(4000)
+//-     +alert-error(4000)
+//-     .container.my-3 
+//-         button(
+//-             class="btn btn-secondary"
+//-             button-go-back
+//-         ) Trở lại
+//-         .row 
+//-             .col-12 
+//-                 +box-head("Giỏ hàng ")
+//-         .row 
+//-             .col-12 
+//-                 table(class="table table-bordered") 
+//-                     thead 
+//-                         tr 
+//-                             th STT 
+//-                             th Ảnh 
+//-                             th Tên 
+//-                             th Giá 
+//-                             th Số lượng 
+//-                             th Tổng tiền 
+//-                             th Hành động 
+//-                     tbody 
+                        
+//-                         if(cartDetail.products.length >0 )
+//-                             each item,index in cartDetail.products
+//-                                 tr
+//-                                     td #{index +1}
+//-                                     td 
+//-                                         img(src=item.productInfor.thumbnail alt=item.productInfor.title width="80px") 
+//-                                     td 
+//-                                         a(href=`products/category/detail/${item.productInfor.slug}`) #{item.productInfor.title} 
+//-                                     td #{item.productInfor.priceNew}$
+//-                                     td 
+//-                                         input(
+//-                                             name="quantity"
+//-                                             value=item.quantity
+//-                                             min=1
+//-                                             product-id=item.product_id
+//-                                             type="number"
+//-                                             style="width:60px"
+//-                                         )
+//-                                     td #{item.totalPrice}$
+//-                                     td 
+//-                                         a(href=`/cart/delete/${item.product_id}` class="btn btn-danger") Xóa
+//-                             else 
+//-                                 p Không có sản phẩm nào trong giỏ hàng
+//-                 h3(class="text-right") Tổng đơn hàng :#{cartDetail.totalPrice}$
+//-                 div(class="mt-3 text-right") 
+//-                     a(href=`/checkout` class="btn btn-success") THANH TOÁN 
+
+//-     script(src="/js/cart.js")
+extends ../../layouts/default.pug
 include ../../layouts/mixins/box-head.pug
 include ../../layouts/mixins/product-layout.pug
 include ../../layouts/mixins/alert.pug
 
-block main 
+block main
     +alert-success(4000)
     +alert-error(4000)
-    .container.my-3 
-        button(
-            class="btn btn-secondary"
-            button-go-back
-        ) Trở lại
-        .row 
-            .col-12 
-                +box-head("Giỏ hàng ")
-        .row 
-            .col-12 
-                table(class="table table-bordered") 
-                    thead 
-                        tr 
-                            th STT 
-                            th Ảnh 
-                            th Tên 
-                            th Giá 
-                            th Số lượng 
-                            th Tổng tiền 
-                            th Hành động 
-                    tbody 
-                        
-                        if(cartDetail.products.length >0 )
-                            each item,index in cartDetail.products
-                                tr
-                                    td #{index +1}
-                                    td 
-                                        img(src=item.productInfor.thumbnail alt=item.productInfor.title width="80px") 
-                                    td 
-                                        a(href=`products/category/detail/${item.productInfor.slug}`) #{item.productInfor.title} 
-                                    td #{item.productInfor.priceNew}$
-                                    td 
-                                        input(
-                                            name="quantity"
-                                            value=item.quantity
-                                            min=1
-                                            product-id=item.product_id
-                                            type="number"
-                                            style="width:60px"
+
+    //- ── BREADCRUMB ─────────────────────────────────────────
+    nav.cart-breadcrumb(aria-label="Điều hướng trang")
+        .container
+            ol.cart-bc-list
+                li.cart-bc-item
+                    a.cart-bc-link(href="/") Trang chủ
+                li.cart-bc-sep(aria-hidden="true") /
+                li.cart-bc-item
+                    a.cart-bc-link(href="/products") Sách thiếu nhi
+                li.cart-bc-sep(aria-hidden="true") /
+                li.cart-bc-item.cart-bc-current(aria-current="page") Giỏ hàng
+
+    //- ── MAIN ───────────────────────────────────────────────
+    main.cart-page(role="main")
+        .container
+
+            //- Page header
+            .cart-page-header
+                button.cart-back-btn(button-go-back type="button" aria-label="Quay lại trang trước")
+                    svg.cart-back-icon(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        polyline(points="15 18 9 12 15 6")
+                    span Trở lại
+
+                .cart-title-wrap
+                    h1.cart-heading
+                        span.cart-heading-icon 📚
+                        | Giỏ hàng của bé
+                    if cartDetail.products.length > 0
+                        span.cart-count-badge(aria-label=`${cartDetail.products.length} sản phẩm trong giỏ`) #{cartDetail.products.length} cuốn sách
+
+            //- ── NON-EMPTY CART ──────────────────────────────
+            if cartDetail.products.length > 0
+                .cart-layout
+
+                    //- Left: items
+                    section.cart-items-section(aria-label="Sản phẩm trong giỏ hàng")
+
+                        //- Column labels (desktop)
+                        .cart-cols-header(aria-hidden="true")
+                            span.cart-col-product Ảnh
+
+                            span.cart-col-product Sản phẩm
+
+
+                            span.cart-col-price  Đơn giá
+                            span.cart-col-qty    Số lượng
+                            span.cart-col-total  Thành tiền
+                            span.cart-col-act    &nbsp;
+
+                        ul.cart-items-list(role="list")
+                            each item, index in cartDetail.products
+                                li.cart-item(role="listitem")
+                                    //- Cover
+                                    .cart-item-cover
+                                        a(
+                                            href=`/products/category/detail/${item.productInfor.slug}`
+                                            tabindex="-1"
+                                            aria-hidden="true"
                                         )
-                                    td #{item.totalPrice}$
-                                    td 
-                                        a(href=`/cart/delete/${item.product_id}` class="btn btn-danger") Xóa
-                            else 
-                                p Không có sản phẩm nào trong giỏ hàng
-                h3(class="text-right") Tổng đơn hàng :#{cartDetail.totalPrice}$
-                div(class="mt-3 text-right") 
-                    a(href=`/checkout` class="btn btn-success") THANH TOÁN 
+                                            img.cart-item-img(
+                                                src=item.productInfor.thumbnail
+                                                alt=`Bìa sách: ${item.productInfor.title}`
+                                                width="80"
+                                                height="108"
+                                                loading="lazy"
+                                            )
+                                        span.cart-item-num ##{index + 1}
 
+                                    //- Info
+                                    .cart-item-info
+                                        a.cart-item-name(
+                                            href=`/products/category/detail/${item.productInfor.slug}`
+                                        ) #{item.productInfor.title}
+                                        //- Mobile price (hidden on desktop)
+                                        .cart-item-meta-mobile
+                                            span.cart-item-price-mobile Đơn giá:&nbsp;
+                                                strong #{item.productInfor.priceNew}$
 
-                         
-        
+                                    //- Unit price (desktop)
+                                    .cart-item-unit(aria-label=`Đơn giá: ${item.productInfor.priceNew}$`)
+                                        span #{item.productInfor.priceNew}$
+
+                                    //- Qty
+                                    .cart-item-qty-wrap(aria-label=`Số lượng ${item.productInfor.title}`)
+                                        .cart-qty-ctrl
+                                            button.cart-qty-btn.cart-qty-dec(
+                                                type="button"
+                                                aria-label="Giảm số lượng"
+                                                data-product-id=item.product_id
+                                            ) −
+                                            input.cart-qty-input(
+                                                type="number"
+                                                name="quantity"
+                                                value=item.quantity
+                                                min="1"
+                                                product-id=item.product_id
+                                                aria-label=`Số lượng sách ${item.productInfor.title}`
+                                            )
+                                            button.cart-qty-btn.cart-qty-inc(
+                                                type="button"
+                                                aria-label="Tăng số lượng"
+                                                data-product-id=item.product_id
+                                            ) +
+
+                                    //- Row total
+                                    .cart-item-row-total(aria-label=`Thành tiền: ${item.totalPrice}$`)
+                                        span.cart-row-total-val #{item.totalPrice}$
+
+                                    //- Remove
+                                    .cart-item-remove
+                                        a.cart-remove-btn(
+                                            href=`/cart/delete/${item.product_id}`
+                                            role="button"
+                                            aria-label=`Xóa "${item.productInfor.title}" khỏi giỏ hàng`
+                                            title="Xóa sản phẩm"
+                                        )
+                                            svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                                                polyline(points="3 6 5 6 21 6")
+                                                path(d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6")
+                                                path(d="M10 11v6M14 11v6M9 6V4h6v2")
+
+                        //- Continue shopping
+                        .cart-continue-row
+                            a.cart-continue-link(href="/products")
+                                svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                                    polyline(points="15 18 9 12 15 6")
+                                span Tiếp tục mua sắm
+
+                    //- Right: Order summary
+                    aside.cart-summary(aria-label="Tóm tắt đơn hàng")
+                        .cart-summary-card
+
+                            h2.cart-summary-heading
+                                span(aria-hidden="true") 📦
+                                | Tóm tắt đơn hàng
+
+                            .cart-summary-lines
+                                .cart-summary-row
+                                    span Tạm tính
+                                        span.cart-summary-qty &nbsp;(#{cartDetail.products.length} sp)
+                                    span #{cartDetail.totalPrice}$
+                                .cart-summary-row.cart-ship-row
+                                    span Phí vận chuyển
+                                    span.cart-free-chip
+                                        | 🎉 Miễn phí
+                                .cart-summary-sep(role="separator" aria-hidden="true")
+                                .cart-summary-row.cart-grand-row
+                                    strong Tổng cộng
+                                    strong.cart-grand-val #{cartDetail.totalPrice}$
+
+                            a.cart-checkout-btn(
+                                href="/checkout"
+                                role="button"
+                                aria-label="Tiến hành thanh toán ngay"
+                            )
+                                span Thanh toán ngay
+                                svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                                    line(x1="5" y1="12" x2="19" y2="12")
+                                    polyline(points="12 5 19 12 12 19")
+
+                            //- Mini trust signals
+                            ul.cart-trust-mini(aria-label="Cam kết mua sắm")
+                                li.cart-trust-row
+                                    span(aria-hidden="true") 🔒
+                                    span Thanh toán bảo mật SSL
+                                li.cart-trust-row
+                                    span(aria-hidden="true") 🚀
+                                    span Giao nhanh 2 – 3 ngày
+                                li.cart-trust-row
+                                    span(aria-hidden="true") 🔄
+                                    span Đổi trả trong vòng 7 ngày
+                                li.cart-trust-row
+                                    span(aria-hidden="true") 🎁
+                                    span Gói quà miễn phí cho trẻ
+
+            //- ── EMPTY CART ──────────────────────────────────
+            else
+                .cart-empty(role="region" aria-label="Giỏ hàng trống")
+                    .cart-empty-illo(aria-hidden="true") 📖
+                    h2.cart-empty-title Giỏ sách đang trống!
+                    p.cart-empty-desc
+                        | Hãy khám phá kho sách thiếu nhi phong phú của chúng tôi
+                        br
+                        | và thêm những cuốn sách yêu thích vào giỏ nhé!
+                    a.cart-empty-cta(href="/products" role="button")
+                        svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                            circle(cx="9" cy="21" r="1")
+                            circle(cx="20" cy="21" r="1")
+                            path(d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6")
+                        | Khám phá sách ngay
+
+    script(src="/js/cart.js")

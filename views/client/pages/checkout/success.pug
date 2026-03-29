@@ -1,0 +1,158 @@
+//- extends ../../layouts/default.pug 
+//- include ../../layouts/mixins/box-head.pug
+//- include ../../layouts/mixins/product-layout.pug
+//- include ../../layouts/mixins/alert.pug
+
+//- block main 
+//-     +alert-success(4000)
+//-     +alert-error(4000)
+//-     .container.my-3 
+//-         button(
+//-             class="btn btn-secondary"
+//-             button-go-back
+//-         ) Trở lại
+//-         .row 
+//-             .col-12 
+//-                 +box-head("Đặt hàng thành công ")
+//-         .row
+//-             .col-12 
+//-                 div(class="alert alert-success") 
+//-                     | Chúc mừng bạn đã đặt hàng thành công , chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất! 
+//-         if(order)
+//-             .row 
+//-                 .col-12 
+//-                     h4 Thông tin cá nhân 
+//-                     table(class="table table-bordered") 
+//-                         tbody 
+//-                             tr 
+//-                                 td Họ tên 
+//-                                 td 
+//-                                     b #{order.userInfor.fullName} 
+//-                             tr 
+//-                                 td Số điện thoại 
+//-                                 td 
+//-                                     b #{order.userInfor.phone} 
+//-                             tr 
+//-                                 td Địa chỉ  
+//-                                 td 
+//-                                     b #{order.userInfor.address} 
+//-                     h4 Thông tin đơn hàng 
+//-                     table(class="table table-bordered") 
+//-                         thead 
+//-                             tr 
+//-                                 th STT 
+//-                                 th Ảnh 
+//-                                 th Tên 
+//-                                 th Giá 
+//-                                 th Số lượng 
+//-                                 th Thành tiền 
+                                
+//-                         tbody 
+//-                             if(order.products.length > 0)
+//-                                 each item,index in order.products 
+//-                                     tr 
+//-                                         td #{index + 1} 
+//-                                         td 
+//-                                             img(
+//-                                                 src=item.productInfor.thumbnail
+//-                                                 alt= item.productInfor.title
+//-                                                 width="80px"
+//-                                             ) 
+//-                                         td #{item.productInfor.title} 
+//-                                         td #{item.priceNew}
+//-                                         td #{item.quantity}
+//-                                         td #{item.totalPrice} 
+//-                     if(order.products.length > 0) 
+//-                         h3(class="text-right") Tổng đơn hàng: #{order.totalPrices}$
+extends ../../layouts/default.pug
+include ../../layouts/mixins/box-head.pug
+include ../../layouts/mixins/product-layout.pug
+include ../../layouts/mixins/alert.pug
+
+block main
+    +alert-success(4000)
+    +alert-error(4000)
+
+    .container.my-3.order-success-page
+        //- Back / header
+        .row.os-header
+            .col-12
+                a.btn.btn-arrow(href="/" role="button" aria-label="Quay lại")
+                    span.btn-arrow-label Trở lại
+
+                +box-head("Đặt hàng thành công ")
+
+        //- Success alert
+        .row.os-alert-row
+            .col-12
+                .alert.alert-success.os-alert(role="status" aria-live="polite")
+                    strong.os-alert-title 🎉 Đặt hàng thành công!
+                    p.os-alert-desc Chúc mừng bạn đã đặt hàng thành công, chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất!
+
+        //- Order details block
+        if(order)
+            .row.os-details-row
+                //- Personal info (card)
+                .col-12.col-lg-6.os-customer
+                    .card.os-card
+                        .card-body
+                            h4.os-section-title Thông tin cá nhân
+                            table.table.table-bordered.os-customer-table
+                                tbody
+                                    tr.os-row
+                                        td.os-label Họ tên
+                                        td.os-value
+                                            b #{order.userInfor.fullName}
+                                    tr.os-row
+                                        td.os-label Số điện thoại
+                                        td.os-value
+                                            b #{order.userInfor.phone}
+                                    tr.os-row
+                                        td.os-label Địa chỉ
+                                        td.os-value
+                                            b #{order.userInfor.address}
+
+                //- Order summary (card)
+                .col-12.col-lg-6.os-order
+                    .card.os-card
+                        .card-body
+                            h4.os-section-title Thông tin đơn hàng
+                            //- Products table
+                            table.table.table-bordered.os-products-table
+                                thead
+                                    tr
+                                        th.text-center STT
+                                        th Ảnh
+                                        th Tên
+                                        th.text-right Giá
+                                        th.text-center Số lượng
+                                        th.text-right Thành tiền
+                                tbody
+                                    if(order.products.length > 0)
+                                        each item,index in order.products
+                                            tr.os-product-row
+                                                td.text-center #{index + 1}
+                                                td
+                                                    img.os-thumb(src=item.productInfor.thumbnail alt=item.productInfor.title width="80")
+                                                td #{item.productInfor.title}
+                                                td.text-right #{item.priceNew}$
+                                                td.text-center #{item.quantity}
+                                                td.text-right #{item.totalPrice}$
+                                    else
+                                        tr
+                                            td(colspan="6").text-center Không có sản phẩm trong đơn hàng
+
+                            //- Total row (separate block for emphasis)
+                            .os-total-row
+                                span.os-total-label Tổng đơn hàng:
+                                strong.os-total-value #{order.totalPrices}$
+
+        //- Footer / actions (kept minimal and centered)
+        .row.os-footer-row.mt-4
+            .col-12.text-center
+                a.btn.btn-outline-primary(href="/products") Tiếp tục mua sắm
+
+    //- include any page-specific script if needed
+    
+    script(src="/js/index.js")
+

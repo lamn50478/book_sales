@@ -8,15 +8,13 @@ header.header(role="banner" aria-label="Header chính")
         a(href="/" aria-label="Trang chủ")
           img(src="/img/book.png" alt="Ảnh logo" width="64" height="64")
     
-    .col-6
-      
+    .col-5
       .inner-menu
         //- Desktop / tablet menu (pill style)
         ul
-
           li
             a(href="/")
-              | Trang chu
+              | Trang chủ
           li
             a(href="/demo")
               | Trang demo
@@ -24,14 +22,14 @@ header.header(role="banner" aria-label="Header chính")
           li.sub-menu
             - const pathProduct="/products"
             a(href="/products" aria-haspopup="true" aria-expanded="false")
-              | Trang danh sach san pham
+              | Sản phẩm
               span.caret
             +sub-menu(layoutProductsCategory,pathProduct)
 
-              
           li
             a(href="/admin/dashboard")
               | Trang admin
+
     .col-3
       form(
         action="/search"
@@ -46,34 +44,49 @@ header.header(role="banner" aria-label="Header chính")
             value=keyword
           )
           button(type="submit" class="btn btn-primary search-btn" aria-label="Tìm kiếm")
-            //- inline SVG magnifier
             svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
               circle(cx="11" cy="11" r="6")
               line(x1="21" y1="21" x2="16.65" y2="16.65")
             | Tìm
-    .col-1 
-      div 
-        a(href=`/cart` class="ml-5") Giỏ hàng(#{miniCart?miniCart:"0"}) 
-          
 
-          
-      //- Mobile toggle (keeps markup simple; JS toggles body.menu-open)
+    //- ── GIỎ HÀNG ─────────────────────────────────────────
+    .col-2.d-flex.align-items-center.justify-content-end
+      a.header-cart-pill(
+        href="/cart"
+        aria-label=`Giỏ hàng – ${miniCart ? miniCart : 0} sản phẩm`
+        title="Xem giỏ hàng"
+      )
+        //- Icon túi
+        span.hcp-icon(aria-hidden="true")
+          svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round")
+            path(d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z")
+            line(x1="3" y1="6" x2="21" y2="6")
+            path(d="M16 10a4 4 0 0 1-8 0")
+        //- Text block
+        span.hcp-text
+          span.hcp-label Giỏ hàng
+          span.hcp-sub #{miniCart && miniCart > 0 ? miniCart + ' sản phẩm' : 'Trống'}
+        //- Badge
+        span.hcp-badge(
+          aria-hidden="true"
+          class=(miniCart && miniCart > 0 ? '' : 'hcp-badge--empty')
+        ) #{miniCart ? miniCart : 0}
+
+      //- Mobile toggle
       button.menu-toggle#menuToggle(type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Mở menu")
         span.bar
         span.bar
         span.bar
 
-  //- Mobile menu panel (hidden by default; shown when JS adds body.menu-open)
+  //- Mobile menu panel
   nav#mobileMenu.mobile-menu(role="navigation" aria-label="Menu di động")
     .mobile-inner
       ul
         li
-          a(href="/")
-            | Trang chu
-        //- Mobile tree uses same .sub-menu class so CSS rules apply consistently
+          a(href="/") Trang chủ
         li.sub-menu
           a(href="/products" aria-haspopup="true" aria-expanded="false")
-            | Trang danh sach san pham
+            | Sản phẩm
             span.caret
           ul
             li
@@ -90,20 +103,30 @@ header.header(role="banner" aria-label="Header chính")
                       a(href="/products/slug-1-2-2") Mục 1-2-2
             li
               a(href="/products/slug-2") Mục 2
+        li
+          a(href="/admin/dashboard") Trang admin
+        li
+          a(href="/admin/products") Quản lý sản phẩm
 
+        //- Mobile cart row
         li
-          a(href="/admin/dashboard")
-            | Trang admin
-        li
-          a(href="/admin/products")
-            | Trang quan ly san pham admin
-        li 
-          a(href=`/cart`) Giỏ hàng 
+          a.header-cart.header-cart--mobile(href="/cart" aria-label="Giỏ hàng")
+            span.header-cart-icon(aria-hidden="true")
+              svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
+                path(d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z")
+                line(x1="3" y1="6" x2="21" y2="6")
+                path(d="M16 10a4 4 0 0 1-8 0")
+            span Giỏ hàng
+            span.header-cart-badge(
+              class=(miniCart && miniCart > 0 ? '' : 'header-cart-badge--empty')
+            ) #{miniCart ? miniCart : 0}
+
       .mobile-cta
         a.btn.btn-cta(href="/collections/best-sellers") Khám phá sách
-//- chèn ngay dưới header.pug hoặc cuối file header
+
+//- ── SCOPED STYLES (search bar + cart icon) ─────────────
 style.
-  /* ===== Search button & bar (scoped to header) ===== */
+  /* ===== Search button & bar ===== */
   .header .search-bar {
     display: inline-flex;
     align-items: center;
@@ -118,12 +141,10 @@ style.
     max-width: 520px;
     width: 100%;
   }
-
   .header .search-bar:focus-within {
     box-shadow: 0 8px 30px rgba(124,58,237,0.08);
     transform: translateY(-1px);
   }
-
   .header .search-bar .form-control {
     border: 0;
     background: transparent;
@@ -134,12 +155,7 @@ style.
     min-width: 0;
     flex: 1 1 auto;
   }
-
-  .header .search-bar .form-control::placeholder {
-    color: rgba(47,42,36,0.45);
-  }
-
-  /* Search button: modern pill with icon */
+  .header .search-bar .form-control::placeholder { color: rgba(47,42,36,0.45); }
   .header .search-bar .search-btn {
     display: inline-flex;
     align-items: center;
@@ -154,33 +170,23 @@ style.
     background: linear-gradient(90deg, #FFB86B 0%, #F59E0B 60%);
     box-shadow: 0 10px 26px rgba(255,184,107,0.18);
     transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     white-space: nowrap;
   }
-
   .header .search-bar .search-btn:hover {
     transform: translateY(-3px);
     filter: saturate(1.05);
     box-shadow: 0 18px 40px rgba(255,184,107,0.20);
   }
-
   .header .search-bar .search-btn:active {
     transform: translateY(0);
     box-shadow: 0 8px 18px rgba(255,184,107,0.12);
   }
-
-  /* Small magnifier icon (pure CSS SVG) */
   .header .search-btn svg {
     width: 16px;
     height: 16px;
     display: block;
     flex-shrink: 0;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));
   }
-
-  /* Disabled / loading state (optional) */
   .header .search-btn[disabled] {
     opacity: 0.6;
     cursor: not-allowed;
@@ -188,19 +194,11 @@ style.
     box-shadow: none;
     filter: grayscale(0.2);
   }
-
-  /* Compact mode for small screens */
   @media (max-width: 768px) {
-    .header .search-bar {
-      min-width: 0;
-      max-width: 320px;
-      padding: 6px;
-    }
+    .header .search-bar { min-width: 0; max-width: 320px; padding: 6px; }
     .header .search-bar .form-control { padding: 8px 10px; font-size: 13px; }
     .header .search-bar .search-btn { padding: 8px 10px; font-size: 13px; }
   }
-
-  /* Accessibility focus ring */
   .header .search-bar .search-btn:focus,
   .header .search-bar .form-control:focus {
     outline: 3px solid rgba(124,58,237,0.12);
