@@ -161,11 +161,11 @@ block main
               //- Price box
               .bkd-price-box
                 .bkd-price-main(itemprop="offers" itemscope itemtype="https://schema.org/Offer")
-                  meta(itemprop="priceCurrency" content="USD")
+                  meta(itemprop="priceCurrency" content="VND")
                   meta(itemprop="price" content=unitPrice)
-                  span.bkd-price-new #{unitPrice.toLocaleString('en-US')}$
+                  span.bkd-price-new #{unitPrice.toLocaleString('vi-VN')}₫
                   if basePrice > unitPrice
-                    span.bkd-price-old #{basePrice.toLocaleString('en-US')}$
+                    span.bkd-price-old #{basePrice.toLocaleString('vi-VN')}₫
                 if discountPercent > 0
                   span.bkd-save-chip Tiết kiệm #{discountPercent}%
 
@@ -190,9 +190,9 @@ block main
                 .bkd-buy-price-row
                   span.bkd-buy-label Giá bán lẻ
                   .bkd-buy-prices
-                    strong.bkd-buy-price-main #{unitPrice.toLocaleString('en-US')}$
+                    strong.bkd-buy-price-main #{unitPrice.toLocaleString('vi-VN')}₫
                     if basePrice > unitPrice
-                      span.bkd-buy-price-old #{basePrice.toLocaleString('en-US')}$
+                      span.bkd-buy-price-old #{basePrice.toLocaleString('vi-VN')}₫
 
               form.bkd-buy-form(
                 action=`/cart/add/${product.id}`
@@ -218,7 +218,7 @@ block main
                 //- Running total
                 .bkd-total-row
                   span.bkd-total-label Tạm tính
-                  span#bkdTotalPrice.bkd-total-val #{unitPrice.toLocaleString('en-US')}$
+                  span#bkdTotalPrice.bkd-total-val #{unitPrice.toLocaleString('vi-VN')}₫
 
                 //- CTAs
                 .bkd-cta-row
@@ -228,7 +228,7 @@ block main
                       line(x1="3" y1="6" x2="21" y2="6")
                       path(d="M16 10a4 4 0 0 1-8 0")
                     | Thêm vào giỏ
-                  button.bkd-btn-buy(type="button" id="bkdBuyNow")
+                  a.bkd-btn-buy(href="/cart" role="button")
                     svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
                       polyline(points="13 17 18 12 13 7")
                       polyline(points="6 17 11 12 6 7")
@@ -309,12 +309,12 @@ block main
                 span.bkd-spec-val #{publishYear}
               .bkd-spec-item
                 span.bkd-spec-label Giá bán
-                span.bkd-spec-val.bkd-spec-price #{unitPrice.toLocaleString('en-US')}$
+                span.bkd-spec-val.bkd-spec-price #{unitPrice.toLocaleString('vi-VN')}₫
               if basePrice > unitPrice
                 .bkd-spec-item
                   span.bkd-spec-label Giá niêm yết
                   span.bkd-spec-val
-                    del #{basePrice.toLocaleString('en-US')}$
+                    del #{basePrice.toLocaleString('vi-VN')}₫
               if discountPercent > 0
                 .bkd-spec-item
                   span.bkd-spec-label Ưu đãi
@@ -355,7 +355,7 @@ block main
         const unitPrice = !{unitPrice};
         const maxStock  = Number(qtyInput.getAttribute('max')) || 9999;
 
-        function fmt(n) { return n.toLocaleString('en-US') + '$'; }
+        function fmt(n) { return n.toLocaleString('vi-VN') + '₫'; }
         function setQty(v) {
           v = Math.max(1, Math.min(maxStock, Number(v) || 1));
           qtyInput.value = v;
@@ -388,18 +388,6 @@ block main
             if (target) { target.classList.remove('bkd-pane--hidden'); target.setAttribute('aria-hidden', 'false'); }
           });
         });
-
-        /* ── Buy now ── */
-        const buyNowBtn = document.getElementById('bkdBuyNow');
-        const buyForm   = document.querySelector('.bkd-buy-form');
-        if (buyNowBtn && buyForm) {
-          buyNowBtn.addEventListener('click', () => {
-            let inp = buyForm.querySelector('input[name="buyNowFlag"]');
-            if (!inp) { inp = Object.assign(document.createElement('input'), { type: 'hidden', name: 'buyNowFlag' }); buyForm.appendChild(inp); }
-            inp.value = '1';
-            buyForm.submit();
-          });
-        }
       })();
 
   else

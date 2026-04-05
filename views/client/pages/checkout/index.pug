@@ -35,9 +35,7 @@ block main
                         span.cart-count-badge(aria-label=`${cartDetail.products.length} sản phẩm trong giỏ`) #{cartDetail.products.length} cuốn sách
 
             if cartDetail.products.length > 0
-                //- LAYOUT: left = items, right = summary
                 .cart-layout
-                    //- Left: items
                     section.cart-items-section(aria-label="Sản phẩm trong giỏ hàng")
                         .cart-cols-header(aria-hidden="true")
                             span.cart-col-product Ảnh
@@ -71,10 +69,10 @@ block main
                                         ) #{item.productInfor.title}
                                         .cart-item-meta-mobile
                                             span.cart-item-price-mobile Đơn giá:&nbsp;
-                                                strong #{item.productInfor.priceNew}$
+                                                strong #{Number(item.productInfor.priceNew).toLocaleString('vi-VN')}₫
 
-                                    .cart-item-unit(aria-label=`Đơn giá: ${item.productInfor.priceNew}$`)
-                                        span #{item.productInfor.priceNew}$
+                                    .cart-item-unit(aria-label=`Đơn giá: ${Number(item.productInfor.priceNew).toLocaleString('vi-VN')}₫`)
+                                        span #{Number(item.productInfor.priceNew).toLocaleString('vi-VN')}₫
 
                                     .cart-item-qty-wrap(aria-label=`Số lượng ${item.productInfor.title}`)
                                         input.cart-qty-input(
@@ -86,10 +84,9 @@ block main
                                             aria-label=`Số lượng sách ${item.productInfor.title}`
                                         )
 
-                                    .cart-item-row-total(aria-label=`Thành tiền: ${item.totalPrice}$`)
-                                        span.cart-row-total-val #{item.totalPrice}$
+                                    .cart-item-row-total(aria-label=`Thành tiền: ${Number(item.totalPrice).toLocaleString('vi-VN')}₫`)
+                                        span.cart-row-total-val #{Number(item.totalPrice).toLocaleString('vi-VN')}₫
 
-                    //- Right: Order summary (bên phải của danh sách sản phẩm)
                     aside.cart-summary(aria-label="Tóm tắt đơn hàng")
                         .cart-summary-card
                             h2.cart-summary-heading
@@ -100,7 +97,7 @@ block main
                                 .cart-summary-row
                                     span Tạm tính
                                         span.cart-summary-qty &nbsp;(#{cartDetail.products.length} sp)
-                                    span #{cartDetail.totalPrice}$
+                                    span #{Number(cartDetail.totalPrice).toLocaleString('vi-VN')}₫
                                 .cart-summary-row.cart-ship-row
                                     span Phí vận chuyển
                                     span.cart-free-chip
@@ -108,12 +105,8 @@ block main
                                 .cart-summary-sep(role="separator" aria-hidden="true")
                                 .cart-summary-row.cart-grand-row
                                     strong Tổng cộng
-                                    strong.cart-grand-val #{cartDetail.totalPrice}$
+                                    strong.cart-grand-val #{Number(cartDetail.totalPrice).toLocaleString('vi-VN')}₫
 
-                            
-                            
-
-                //- FORM THÔNG TIN: đặt dưới toàn bộ layout, chiếm full width
                 .checkout-form-row
                     .card.p-4.my-4.checkout-form
                         form(action=`/checkout/order` method="POST" novalidate)
@@ -145,7 +138,6 @@ block main
                                 .form-actions
                                     button.btn.btn-primary(type="submit") Hoàn tất đặt hàng
 
-                //- Continue shopping (giữ nguyên)
                 .cart-continue-row
                     a.cart-continue-link(href="/products")
                         svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
