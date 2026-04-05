@@ -182,8 +182,7 @@
               "RelativeToolTip": "views\\admin\\layouts\\auth.pug",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
-              "WhenOpened": "2026-03-22T11:01:00.985Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T11:01:00.985Z"
             },
             {
               "$type": "Document",
@@ -195,8 +194,7 @@
               "RelativeToolTip": "views\\admin\\pages\\auth\\login.pug",
               "ViewState": "AgIAAEEBAAAAAAAAAAAcwFUBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
-              "WhenOpened": "2026-03-22T10:54:08.039Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:54:08.039Z"
             },
             {
               "$type": "Document",
@@ -208,8 +206,7 @@
               "RelativeToolTip": "middeware\\admin\\auth.middleware.js",
               "ViewState": "AgIAAAcAAAAAAAAAAAAswBoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:51:20.845Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:51:20.845Z"
             },
             {
               "$type": "Document",
@@ -221,8 +218,7 @@
               "RelativeToolTip": "controller\\admin\\auth.controller.js",
               "ViewState": "AgIAAB0AAAAAAAAAAAAswDAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:49:59.926Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:49:59.926Z"
             },
             {
               "$type": "Document",
@@ -234,8 +230,7 @@
               "RelativeToolTip": "validates\\admin\\auth.validate.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:48:27.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:48:27.146Z"
             },
             {
               "$type": "Document",
@@ -247,8 +242,7 @@
               "RelativeToolTip": "routers\\admin\\product.route.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-18T03:29:18.356Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-18T03:29:18.356Z"
             },
             {
               "$type": "Document",
@@ -273,8 +267,7 @@
               "RelativeToolTip": "routers\\admin\\auth.route.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:47:50.764Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:47:50.764Z"
             },
             {
               "$type": "Document",
@@ -286,8 +279,7 @@
               "RelativeToolTip": "routers\\admin\\index.route.js",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-02-26T12:31:09.149Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T12:31:09.149Z"
             },
             {
               "$type": "Document",
@@ -299,8 +291,7 @@
               "RelativeToolTip": "routers\\admin\\accounts.route.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:47:27.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:47:27.253Z"
             },
             {
               "$type": "Document",
@@ -312,8 +303,7 @@
               "RelativeToolTip": "controller\\admin\\my-account.controller.js",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:46:24.595Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:46:24.595Z"
             },
             {
               "$type": "Document",
@@ -325,8 +315,7 @@
               "RelativeToolTip": "controller\\admin\\accounts.controller.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-22T10:46:15.88Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-22T10:46:15.88Z"
             },
             {
               "$type": "Document",
@@ -398,8 +387,7 @@
               "RelativeToolTip": "controller\\client\\product.controller.js",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-18T04:44:38.235Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-18T04:44:38.235Z"
             },
             {
               "$type": "Document",

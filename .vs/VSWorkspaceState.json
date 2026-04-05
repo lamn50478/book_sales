@@ -9,7 +9,9 @@
     "\\views\\admin",
     "\\views\\admin\\layouts",
     "\\views\\admin\\pages",
-    "\\views\\admin\\pages\\auth"
+    "\\views\\admin\\pages\\auth",
+    "\\views\\admin\\pages\\dashboard"
   ],
+  "SelectedNode": "\\views\\admin\\pages\\dashboard\\index.pug",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,402 @@
-extends ../../layouts/default.pug 
-block main 
- h1 Trang tong quan nek 
- div #{user}
- div ------------------------
- div #{role}
+
+//- extends ../../layouts/default.pug
+//- include ../../mixins/alert.pug
+
+//- //- Thêm meta và style vào head của layout
+//- block head
+//-   title Trang tổng quan quản trị - #{pageTitle || 'Admin Dashboard'}
+//-   meta(name="description" content="Bảng điều khiển quản trị hiển thị thống kê danh mục, sản phẩm, tài khoản và người dùng. Quản lý trạng thái active/inactive và tổng số.")
+//-   link(rel="canonical" href=canonicalUrl || "https://example.com/admin/dashboard")
+//-   //- Structured data JSON-LD cho trang dashboard
+//-   script(type="application/ld+json").
+//-     {
+//-       "@context": "https://schema.org",
+//-       "@type": "WebPage",
+//-       "name": "Trang tổng quan quản trị",
+//-       "description": "Bảng điều khiển quản trị hiển thị thống kê danh mục, sản phẩm, tài khoản và người dùng."
+//-     }
+//-   style.
+//-     /* Reset nhỏ */
+//-     :root{
+//-       --bg:#f7f9fc;
+//-       --card:#ffffff;
+//-       --muted:#6b7280;
+//-       --accent:#0ea5a4;
+//-       --accent-dark:#0b8b88;
+//-       --success:#10b981;
+//-       --danger:#ef4444;
+//-       --shadow: 0 6px 18px rgba(15,23,42,0.08);
+//-       --radius:10px;
+//-       --max-width:1200px;
+//-       --gap:1.25rem;
+//-       --transition:200ms ease;
+//-       --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+//-     }
+//-     body { background:var(--bg); font-family:var(--font-sans); color:#0f172a; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+//-     .container { max-width:var(--max-width); margin:0 auto; padding:1.5rem; }
+//-     .dashboard-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+//-     .page-title { font-size:1.5rem; font-weight:700; letter-spacing:-0.02em; }
+//-     .subtle { color:var(--muted); font-size:0.95rem; }
+//-     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--gap); }
+//-     .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; transition:transform var(--transition), box-shadow var(--transition); }
+//-     .card:hover { transform:translateY(-6px); box-shadow:0 12px 30px rgba(15,23,42,0.12); }
+//-     .card-header { padding:1rem 1.25rem; border-bottom:1px solid #eef2f7; font-weight:600; display:flex; align-items:center; gap:0.75rem; }
+//-     .card-body { padding:1.25rem; display:flex; flex-direction:column; gap:0.5rem; }
+//-     .stat-row { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; }
+//-     .stat-label { color:var(--muted); font-size:0.95rem; }
+//-     .stat-value { font-weight:700; font-size:1.05rem; color:#0f172a; }
+//-     .badge { display:inline-flex; align-items:center; gap:0.5rem; padding:0.25rem 0.5rem; border-radius:999px; font-size:0.85rem; color:#fff; }
+//-     .badge--active { background:var(--success); }
+//-     .badge--inactive { background:var(--danger); }
+//-     .avatar { width:96px; height:96px; border-radius:12px; object-fit:cover; border:2px solid #fff; box-shadow:0 6px 18px rgba(2,6,23,0.08); }
+//-     .account-info p { margin:0; }
+//-     .meta-row { display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; }
+//-     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+//-     @media (max-width:520px){ .page-title{font-size:1.25rem} .avatar{width:72px;height:72px} }
+    
+//- block main
+//-   .container
+//-     //- Header
+//-     .dashboard-header
+//-       .left
+//-         h1.page-title Trang tổng quan
+//-         p.subtle Quản trị hệ thống, theo dõi số liệu nhanh và trạng thái các thực thể
+//-       .right
+//-         //- small contextual info for SEO and users
+//-         time(datetime=new Date().toISOString()) Cập nhật: #{new Date().toLocaleString()}
+
+    
+
+//-     //- Main content
+//-     main(role="main" aria-labelledby="dashboard-heading")
+//-       h2.sr-only#dashboard-heading Bảng thống kê nhanh
+
+//-       //- Account info card
+//-       .card
+//-         .card-header
+//-           span Thông tin tài khoản
+//-         .card-body.account-info
+//-           .meta-row
+//-             if user && user.avatar
+//-               img.avatar(src=user.avatar alt=(user.fullName || 'Avatar') loading="lazy")
+//-             .details
+//-               if user.fullName
+//-                 p
+//-                   strong Họ tên: 
+//-                   |  #{user.fullName}
+//-               if user.email
+//-                 p
+//-                   strong Email: 
+//-                   a(href=`mailto:${user.email}`) #{user.email}
+//-               if user.phone
+//-                 p
+//-                   strong Số điện thoại: 
+//-                   |  #{user.phone}
+//-               if role && role.title
+//-                 p
+//-                   strong Phân quyền: 
+//-                   |  #{role.title}
+
+//-       //- Statistic grid
+//-       .grid
+//-         //- Product Category
+//-         .card(role="region" aria-label="Danh mục sản phẩm thống kê")
+//-           .card-header
+//-             span Danh mục sản phẩm
+//-           .card-body
+//-             .stat-row
+//-               .stat-label Số lượng
+//-               .stat-value #{statistic.productCategory.total}
+//-             .stat-row
+//-               .stat-label Hoạt động
+//-               .stat-value
+//-                 span.badge.badge--active #{statistic.productCategory.active}
+//-             .stat-row
+//-               .stat-label Dừng hoạt động
+//-               .stat-value
+//-                 span.badge.badge--inactive #{statistic.productCategory.inactive}
+
+//-         //- Product
+//-         .card(role="region" aria-label="Sản phẩm thống kê")
+//-           .card-header
+//-             span Sản phẩm
+//-           .card-body
+//-             .stat-row
+//-               .stat-label Số lượng
+//-               .stat-value #{statistic.product.total}
+//-             .stat-row
+//-               .stat-label Hoạt động
+//-               .stat-value
+//-                 span.badge.badge--active #{statistic.product.active}
+//-             .stat-row
+//-               .stat-label Dừng hoạt động
+//-               .stat-value
+//-                 span.badge.badge--inactive #{statistic.product.inactive}
+
+//-         //- Admin accounts
+//-         .card(role="region" aria-label="Tài khoản admin thống kê")
+//-           .card-header
+//-             span Tài khoản admin
+//-           .card-body
+//-             .stat-row
+//-               .stat-label Số lượng
+//-               .stat-value #{statistic.account.total}
+//-             .stat-row
+//-               .stat-label Hoạt động
+//-               .stat-value
+//-                 span.badge.badge--active #{statistic.account.active}
+//-             .stat-row
+//-               .stat-label Dừng hoạt động
+//-               .stat-value
+//-                 span.badge.badge--inactive #{statistic.account.inactive}
+
+//-         //- User accounts
+//-         .card(role="region" aria-label="Tài khoản người dùng thống kê")
+//-           .card-header
+//-             span Tài khoản người dùng
+//-           .card-body
+//-             .stat-row
+//-               .stat-label Số lượng
+//-               .stat-value #{statistic.user.total}
+//-             .stat-row
+//-               .stat-label Hoạt động
+//-               .stat-value
+//-                 span.badge.badge--active #{statistic.user.active}
+//-             .stat-row
+//-               .stat-label Dừng hoạt động
+//-               .stat-value
+//-                 span.badge.badge--inactive #{statistic.user.inactive}
+
+//-     //- Footer note for admins and SEO
+//-     footer(style="margin-top:1rem; color:var(--muted); font-size:0.9rem;")
+//-       p Quản trị viên có thể nhấp vào từng mục để xem chi tiết và quản lý trạng thái. Dữ liệu được cập nhật theo thời gian thực.
+
+
+extends ../../layouts/default.pug
+
+block head
+  title Trang tổng quan quản trị - #{pageTitle || 'Admin Dashboard'}
+  meta(name="description" content="Bảng điều khiển quản trị hiển thị thống kê danh mục, sản phẩm, tài khoản và người dùng; kèm danh sách người mua và chi tiết đơn hàng.")
+  style.
+    :root{
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#0ea5a4;
+      --success:#10b981;
+      --danger:#ef4444;
+      --shadow: 0 6px 18px rgba(15,23,42,0.08);
+      --radius:10px;
+      --max-width:1200px;
+      --gap:1.25rem;
+      --transition:200ms ease;
+      --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    body { background:var(--bg); font-family:var(--font-sans); color:#0f172a; -webkit-font-smoothing:antialiased; }
+    .container { max-width:var(--max-width); margin:0 auto; padding:1.5rem; }
+    .dashboard-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+    .page-title { font-size:1.5rem; font-weight:700; letter-spacing:-0.02em; }
+    .subtle { color:var(--muted); font-size:0.95rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--gap); margin-bottom:1rem; }
+    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; transition:transform var(--transition), box-shadow var(--transition); }
+    .card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(15,23,42,0.12); }
+    .card-header { padding:1rem 1.25rem; border-bottom:1px solid #eef2f7; font-weight:600; display:flex; align-items:center; gap:0.75rem; }
+    .card-body { padding:1.25rem; display:flex; flex-direction:column; gap:0.5rem; }
+    .stat-row { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; }
+    .stat-label { color:var(--muted); font-size:0.95rem; }
+    .stat-value { font-weight:700; font-size:1.05rem; color:#0f172a; }
+    .badge { display:inline-flex; align-items:center; gap:0.5rem; padding:0.25rem 0.5rem; border-radius:999px; font-size:0.85rem; color:#fff; }
+    .badge--active { background:var(--success); }
+    .badge--inactive { background:var(--danger); }
+    .avatar { width:80px; height:80px; border-radius:10px; object-fit:cover; border:2px solid #fff; box-shadow:0 4px 12px rgba(2,6,23,0.08); }
+    .account-info p { margin:0 0 .25rem 0; }
+    .meta-row { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+    .muted { color:var(--muted); font-size:0.9rem; }
+    .orders-wrap { margin-top:1.5rem; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
+    .orders-card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:1rem; overflow:hidden; }
+    .user-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; background:#f8fafc; border-bottom:1px solid #eef2f7; flex-wrap:wrap; gap:.5rem; }
+    .user-name { font-weight:700; font-size:1rem; }
+    .user-meta { color:var(--muted); font-size:.88rem; margin-top:.2rem; }
+    .user-total { font-weight:700; color:var(--accent); font-size:1rem; white-space:nowrap; }
+    table.order-table { width:100%; border-collapse:collapse; font-size:.93rem; }
+    table.order-table thead tr { background:#f1f5f9; }
+    table.order-table thead th { padding:.5rem .75rem; text-align:left; color:var(--muted); font-weight:600; white-space:nowrap; }
+    table.order-table thead th.r { text-align:right; }
+    table.order-table thead th.c { text-align:center; }
+    table.order-table tbody td { padding:.55rem .75rem; border-bottom:1px dashed #f1f5f9; vertical-align:middle; }
+    table.order-table tbody td.r { text-align:right; }
+    table.order-table tbody td.c { text-align:center; }
+    table.order-table tbody tr:last-child td { border-bottom:none; }
+    .discount-badge { color:var(--danger); font-weight:600; }
+    .summary-card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:1rem 1.5rem; display:flex; gap:2.5rem; align-items:center; flex-wrap:wrap; margin-top:.5rem; }
+    .summary-card p { margin:0; font-size:.95rem; }
+    .grand-total { color:var(--accent); font-size:1.25rem; font-weight:800; }
+    @media(max-width:720px){
+      .grid{ grid-template-columns:1fr }
+      .user-head{ flex-direction:column; align-items:flex-start }
+      table.order-table thead{ display:none }
+      table.order-table tbody td{ display:block; padding:.4rem .75rem }
+      table.order-table tbody tr{ display:block; border-bottom:1px solid #eef2f7; margin-bottom:.5rem }
+      .summary-card{ gap:1rem }
+    }
+
+block main
+  .container
+
+    //- ── Header ─────────────────────────────────────────────────
+    .dashboard-header
+      .left
+        h1.page-title Trang tổng quan
+        p.subtle Quản trị hệ thống · theo dõi số liệu và đơn hàng
+      .right
+        time(datetime=new Date().toISOString() style="color:var(--muted);font-size:.9rem")
+          | Cập nhật: #{new Date().toLocaleString('vi-VN')}
+
+    //- ── Thông tin tài khoản đang đăng nhập ─────────────────────
+    .card(style="margin-bottom:1rem")
+      .card-header Thông tin tài khoản
+      .card-body.account-info
+        .meta-row
+          if user && user.avatar
+            img.avatar(src=user.avatar alt=(user.fullName || 'Avatar') loading="lazy")
+          .details
+            if user && user.fullName
+              p
+                strong Họ tên: &nbsp;
+                | #{user.fullName}
+            if user && user.email
+              p
+                strong Email: &nbsp;
+                a(href=`mailto:${user.email}`) #{user.email}
+            if user && user.phone
+              p
+                strong Số điện thoại: &nbsp;
+                | #{user.phone}
+            if role && role.title
+              p
+                strong Phân quyền: &nbsp;
+                | #{role.title}
+
+    //- ── Thống kê 4 nhóm ────────────────────────────────────────
+    .grid
+      .card(role="region" aria-label="Danh mục sản phẩm")
+        .card-header Danh mục sản phẩm
+        .card-body
+          .stat-row
+            span.stat-label Tổng số
+            span.stat-value #{statistic.productCategory.total}
+          .stat-row
+            span.stat-label Hoạt động
+            span.stat-value
+              span.badge.badge--active #{statistic.productCategory.active}
+          .stat-row
+            span.stat-label Dừng hoạt động
+            span.stat-value
+              span.badge.badge--inactive #{statistic.productCategory.inactive}
+
+      .card(role="region" aria-label="Sản phẩm")
+        .card-header Sản phẩm
+        .card-body
+          .stat-row
+            span.stat-label Tổng số
+            span.stat-value #{statistic.product.total}
+          .stat-row
+            span.stat-label Hoạt động
+            span.stat-value
+              span.badge.badge--active #{statistic.product.active}
+          .stat-row
+            span.stat-label Dừng hoạt động
+            span.stat-value
+              span.badge.badge--inactive #{statistic.product.inactive}
+
+      .card(role="region" aria-label="Tài khoản admin")
+        .card-header Tài khoản admin
+        .card-body
+          .stat-row
+            span.stat-label Tổng số
+            span.stat-value #{statistic.account.total}
+          .stat-row
+            span.stat-label Hoạt động
+            span.stat-value
+              span.badge.badge--active #{statistic.account.active}
+          .stat-row
+            span.stat-label Dừng hoạt động
+            span.stat-value
+              span.badge.badge--inactive #{statistic.account.inactive}
+
+      .card(role="region" aria-label="Tài khoản người dùng")
+        .card-header Tài khoản người dùng
+        .card-body
+          .stat-row
+            span.stat-label Tổng số
+            span.stat-value #{statistic.user.total}
+          .stat-row
+            span.stat-label Hoạt động
+            span.stat-value
+              span.badge.badge--active #{statistic.user.active}
+          .stat-row
+            span.stat-label Dừng hoạt động
+            span.stat-value
+              span.badge.badge--inactive #{statistic.user.inactive}
+
+    //- ── Danh sách người mua & đơn hàng ─────────────────────────
+    .orders-wrap
+      .section-head
+        h2(style="margin:0;font-size:1.2rem;font-weight:700") Danh sách người mua
+        .total-pill(style="background:var(--accent);color:#fff;padding:.4rem 1.1rem;border-radius:999px;font-weight:700;font-size:.95rem")
+          | Tổng doanh thu: #{(grandTotal||0).toLocaleString('vi-VN')} ₫
+
+      if !purchases || purchases.length === 0
+        .orders-card
+          p.muted(style="padding:1.25rem") Chưa có đơn hàng nào.
+      else
+        each p, idx in purchases
+          .orders-card(role="region" aria-label=`Người mua ${idx+1}`)
+
+            //- Header người dùng
+            .user-head
+              div
+                p.user-name #{p.fullName}
+                p.user-meta
+                  | 📞 #{p.phone}
+                  if p.address && p.address !== '—'
+                    |  &nbsp;·&nbsp; 📍 #{p.address}
+              .user-total
+                | Tổng chi: #{(p.totalSpent||0).toLocaleString('vi-VN')} ₫
+
+            //- Bảng sản phẩm
+            table.order-table(role="table")
+              thead
+                tr
+                  th Sản phẩm
+                  th.c(style="width:70px") SL
+                  th.r(style="width:130px") Đơn giá
+                  th.c(style="width:90px") Giảm giá
+                  th.r(style="width:140px") Thành tiền
+              tbody
+                if p.items && p.items.length
+                  each item in p.items
+                    tr
+                      td
+                        strong #{item.title}
+                      td.c #{item.qty}
+                      td.r #{(item.price||0).toLocaleString('vi-VN')} ₫
+                      td.c
+                        if item.discount > 0
+                          span.discount-badge -#{item.discount}%
+                        else
+                          span.muted —
+                      td.r(style="font-weight:600") #{(item.lineTotal||0).toLocaleString('vi-VN')} ₫
+                else
+                  tr
+                    td(colspan="5" style="padding:1rem;color:var(--muted)") Không có sản phẩm.
+
+      //- ── Tổng kết cuối trang ──────────────────────────────────
+      .summary-card
+        p
+          | Số khách hàng: &nbsp;
+          strong #{purchases ? purchases.length : 0}
+        p
+          | Tổng doanh thu: &nbsp;
+          span.grand-total #{(grandTotal||0).toLocaleString('vi-VN')} ₫

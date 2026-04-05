@@ -10,7 +10,7 @@ const UserSchema= new mongoose.Schema({
    },
    phone:String,
    avatar:String,
-   role_id:String,
+   
    status:String,
   deleted: {
     type:Boolean,

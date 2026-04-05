@@ -11,100 +11,73 @@ const productCategory=require('../../models/products-category.model');
 const Account=require("../../models/account.model.js");
 const createTreeHelper=require("../../helpers/create-tree.js")
 //[GET] admin/products
-module.exports.products= async (req,res)=>{
-//Ham bo loc
-const filterStatus=filterStatusHelpers(req.query);
-console.log(filterStatus);
-//ham bo loc
+module.exports.products = async (req, res) => {
+  try {
+    const filterStatus = filterStatusHelpers(req.query);
+    const find = { deleted: false };
+    const objectSearch = searchHelpers(req.query);
 
+    if (objectSearch.regex) find.title = objectSearch.regex;
+    if (req.query.status) find.status = req.query.status;
 
-
-   const find={
-      deleted:false,
-    
-   }
-   let keyword="";
-   const objectSearch=searchHelpers(req.query);
-
-   if(objectSearch.regex){
-      find.title=objectSearch.regex;
-   }
-
-   if(req.query.status){ //req.query.status :lay ra trang thai cua status :active hoac inactive
-      find.status=req.query.status
-   }
-//pagination
-   const countProducts=await Product.countDocuments();
-   let objectPagination=paginationHelpers(
-      {
-         currentPage:""|| 1,
-         limitPages:"4"
-      },
+    const countProducts = await Product.countDocuments();
+    let objectPagination = paginationHelpers(
+      { currentPage: 1, limitPages: "4" },
       countProducts,
       req.query
-   );
-//end pagination 
+    );
 
-//sort
-let sort={};
+    let sort = {};
+    if (req.query.sortKey && req.query.sortValue) {
+      sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+      sort.position = "desc";
+    }
 
-if(req.query.sortKey && req.query.sortValue){
-    sort[req.query.sortKey]=req.query.sortValue;
-}else{
-   sort.position="desc";
-}
+    const products = await Product.find(find)
+      .sort(sort)
+      .limit(objectPagination.limitPages)
+      .skip(objectPagination.skip);
 
-//end sort
+    for (const product of products) {
+      // ✅ Kiểm tra null trước khi query
+      if (product.createdBy?.account_id) {
+        const user = await Account.findOne({ _id: product.createdBy.account_id });
+        if (user) product.accountFullname = user.fullName;
+      }
 
+      // ✅ Lưu thông tin updatedBy vào một object riêng, không gán lên array
+      const lastUpdated = product.updatedBy?.length
+        ? product.updatedBy[product.updatedBy.length - 1]
+        : null;
 
-   const products=await Product.find(find)
-   .sort(sort)
-   .limit(objectPagination.limitPages)
-   .skip(objectPagination.skip);
-   //tim ra nguoi tao va cap nhat lan cuoi
- for (const product of products) {
-  // Người tạo
-  const user = await Account.findOne({
-    _id: product.createdBy.account_id,
-  });
-  if (user) {
-    product.accountFullname = user.fullName;
-    console.log("Ten:---",product.accountFullname);
-  }
+      if (lastUpdated?.account_id) {
+        const userUpdate = await Account.findOne({ _id: lastUpdated.account_id });
+        if (userUpdate) {
+          // ✅ Gán vào field riêng thay vì gán lên array
+          product.lastUpdatedBy = {
+            fullName: userUpdate.fullName,
+            updatedAt: lastUpdated.updatedAt,
+          };
+        }
+      }
+    }
 
-  // Lấy phần tử cập nhật cuối cùng
-  const updatedBy = product.updatedBy && product.updatedBy.length
-    ? product.updatedBy[product.updatedBy.length - 1]
-    : null;
-
-  if (updatedBy) {
-    const userUpdate = await Account.findOne({
-      _id: updatedBy.account_id
+    res.render('admin/pages/products/products.pug', {
+      pageTitle: "TRANG SAN PHAM",
+      products,
+      filterStatus,
+      keyword: objectSearch.keyword,
+      pagination: objectPagination,
     });
 
-    if (userUpdate) {
-      // Gán tên người cập nhật vào product.updatedBy (mảng là object nên có thể thêm thuộc tính)
-      product.updatedBy.account2Fullname = userUpdate.fullName;
-      // Gán luôn updatedAt để Pug có thể dùng item.updatedBy.updatedAt
-      product.updatedBy.updatedAt = updatedBy.updatedAt;
-    }
-   console.log("san pham :",product);
-    console.log("Thong tin:-------", updatedBy);
-    console.log("product.updatedBy.account2Fullname:", product.updatedBy.account2Fullname);
+  } catch (error) {
+    // ✅ Bắt mọi lỗi, không để crash server
+    console.error("Lỗi trang products:", error);
+    req.flash("error", "Có lỗi xảy ra");
+    res.redirect("/admin");
   }
-}
-
-  
-    
-  
-   res.render('admin/pages/products/products.pug',{
-    pageTitle:"TRANG SAN PHAM",
-    products:products,
-    filterStatus:filterStatus,
-    keyword:objectSearch.keyword,
-    pagination:objectPagination
-   })
-}
+};
 //[PATCH] /admin/products/change-status/status/id
 module.exports.changeStatus=async (req,res)=>{
     const status=req.params.status;
@@ -210,37 +183,45 @@ module.exports.create= async (req,res)=>{
    })
 };
 //[POST] /admin/products/create
-module.exports.createPost= async (req,res)=>{
-  
-   const permission=res.locals.role.permission;
-   if(permission.includes("products_create")){
-      console.log("id productcategory:--------------",req.body.product_category_id);
-         req.body.price=parseFloat(req.body.price);
-   req.body.discountPercentage=parseFloat( req.body.discountPercentage);
-   req.body.stock=parseInt( req.body.stock);
-   if(req.body.position == ""){
-       var count=await Product.countDocuments();
-       req.body.position= count + 1;
-   }else{
-      req.body.position=parseInt( req.body.position);
-   }
+module.exports.createPost = async (req, res) => {
+  try {
+    const permission = res.locals.role && res.locals.role.permission;
+    if (!permission || !permission.includes("products_create")) {
+      req.flash("error", "Bạn không có quyền thực hiện thao tác này");
+      return res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
 
-    
+    // Chuyển kiểu an toàn
+    req.body.price = parseFloat(req.body.price) || 0;
+    req.body.discountPercentage = parseFloat(req.body.discountPercentage) || 0;
+    req.body.stock = parseInt(req.body.stock) || 0;
+    if (!req.body.position || req.body.position === "") {
+      const count = await Product.countDocuments();
+      req.body.position = count + 1;
+    } else {
+      req.body.position = parseInt(req.body.position) || 0;
+    }
 
-   req.body.createdBy={
-      account_id:res.locals.user.id
-   };
-   // console.log("Tai khoan dang nhap vao :",req.body);
-      const product =new Product(req.body);
-      await product.save();
-     res.redirect(`${systemConfig.prefixAdmin}/products`);
-   }
-   else{
-      return;
-   }
-  
+    // Kiểm tra res.locals.user
+    if (!res.locals.user || !res.locals.user.id) {
+      req.flash("error", "Không xác định người dùng");
+      return res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
 
+    req.body.createdBy = { account_id: res.locals.user.id };
+
+    const product = new Product(req.body);
+    await product.save();
+
+    req.flash("success", "Thêm sản phẩm thành công");
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
+  } catch (err) {
+    console.error("Error createPost:", err);
+    req.flash("error", "Thêm sản phẩm thất bại");
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
+  }
 };
+
 //[GET] /admin/products/edit
 module.exports.edit= async (req,res)=>{
 try{

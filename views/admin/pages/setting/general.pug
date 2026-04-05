@@ -1,0 +1,71 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+
+block append head
+  link(rel="stylesheet" href="/admin/css/setting.css")
+
+block main 
+  +alert-success(5000) 
+  +alert-error(5000) 
+  h1 Cài đặt chung
+  form(action=`${prefixAdmin}/setting/general?_method=PATCH` method="POST" enctype="multipart/form-data")
+    .form-group
+      label(for="websiteName") Tên website 
+      //- dùng shorthand id, không khai id trong thuộc tính nữa
+      input#websiteName.form-control(
+        name="websiteName"
+        type="text"
+        value=(SettingGeneral && SettingGeneral.websiteName) ? SettingGeneral.websiteName : ''
+      )
+
+    .form-group(upload-image)
+      label(for="logo") Logo 
+      //- input file: không dùng id trùng nếu dùng shorthand
+      input#logo.form-control-file(
+        name="logo"
+        type="file"
+        accept="image/*"
+        upload-image-input
+      )
+      img.image-preview(
+        src=(SettingGeneral && SettingGeneral.logo) ? SettingGeneral.logo : '/images/placeholder-100.png'
+        alt="Logo preview"
+        upload-image-preview
+      )
+
+    .form-group
+      label(for="phone") Số điện thoại
+      input#phone.form-control(
+        name="phone"
+        type="text"
+        value=(SettingGeneral && SettingGeneral.phone) ? SettingGeneral.phone : ''
+      )
+
+    .form-group
+      label(for="email") Email
+      input#email.form-control(
+        name="email"
+        type="email"
+        value=(SettingGeneral && SettingGeneral.email) ? SettingGeneral.email : ''
+      )
+
+    .form-group
+      label(for="address") Địa chỉ
+      input#address.form-control(
+        name="address"
+        type="text"
+        value=(SettingGeneral && SettingGeneral.address) ? SettingGeneral.address : ''
+      )
+
+    .form-group
+      label(for="copyright") Copyright
+      input#copyright.form-control(
+        name="copyright"
+        type="text"
+        value=(SettingGeneral && SettingGeneral.copyright) ? SettingGeneral.copyright : ''
+      )
+
+    .form-group
+      button.btn.btn-primary(type="submit") Cập nhật
+
+  script(src="/admin/js/setting.js")

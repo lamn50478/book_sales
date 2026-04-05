@@ -6,7 +6,7 @@ header.header(role="banner" aria-label="Header chính")
     .col-1
       .inner-logo
         a(href="/" aria-label="Trang chủ")
-          img(src="/img/book.png" alt="Ảnh logo" width="64" height="64")
+          img(src=SettingGeneral.logo alt="Ảnh logo" width="64" height="64")
     
     .col-5
       .inner-menu
@@ -15,9 +15,10 @@ header.header(role="banner" aria-label="Header chính")
           li
             a(href="/")
               | Trang chủ
-          li
-            a(href="/demo")
-              | Trang demo
+          if(user)
+            li
+              a(href="/user/infor")
+                | Hồ sơ
           
           li.sub-menu
             - const pathProduct="/products"
@@ -29,7 +30,17 @@ header.header(role="banner" aria-label="Header chính")
           li
             a(href="/admin/dashboard")
               | Trang admin
-
+          if(user)
+            li  
+              a(href="/user/logout") 
+                | Đăng xuất
+          else 
+            li  
+              a(href="/user/login") 
+                | Đăng nhập
+            li  
+              a(href="/user/register") 
+                | Đăng kí
     .col-3
       form(
         action="/search"

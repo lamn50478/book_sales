@@ -1,0 +1,186 @@
+/* /public/admin/css/setting.css
+   Styles for admin settings page and smaller logo preview (default 80px) */
+
+/* Root variables */
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --muted: #6c757d;
+  --primary: #0d6efd;
+  --border: #e6e9ef;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(15,30,60,0.06);
+  --max-width: 1100px;
+
+  --preview-size-default: 80px;
+  --preview-size-medium: 100px;
+  --preview-radius: 8px;
+  --preview-border: #e6e9ef;
+  --preview-shadow: 0 4px 12px rgba(12,34,56,0.04);
+}
+
+/* Page container */
+.container-settings{
+  max-width: var(--max-width);
+  margin: 20px auto;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Heading */
+.container-settings h1{
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+  color: #0b2540;
+  font-weight: 600;
+}
+
+/* Form layout */
+.form-group{
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+}
+.form-group label{
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.form-control{
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: #0b2540;
+  font-size: 0.95rem;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.form-control:focus{
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(13,110,253,0.06);
+}
+
+/* File input and upload area */
+[upload-image], .upload-area{
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.upload-area{
+  flex-direction: column;
+  align-items: center;
+}
+.form-control-file, input[type="file"][upload-image-input]{
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px dashed var(--border);
+  background: #fff;
+  cursor: pointer;
+}
+input[type="file"][upload-image-input]::file-selector-button{
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Preview wrapper and image */
+.preview-wrapper, .image-preview-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.image-preview{
+  width: var(--preview-size-default);
+  height: var(--preview-size-default);
+  object-fit: cover;
+  border-radius: var(--preview-radius);
+  border: 1px solid var(--preview-border);
+  background: linear-gradient(180deg,#f8f9fb,#ffffff);
+  box-shadow: var(--preview-shadow);
+  display: block;
+}
+
+/* Optional size modifiers */
+.image-preview--medium{
+  width: var(--preview-size-medium);
+  height: var(--preview-size-medium);
+}
+.image-preview--tiny{
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+}
+
+/* Preview meta text */
+.preview-meta{
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Buttons */
+.btn-primary{
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.btn-primary:hover{
+  background: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+/* Responsive */
+@media (max-width: 768px){
+  .container-settings{ margin: 12px; padding: 14px; }
+  [upload-image], .upload-area{ flex-direction: column; align-items: center; }
+  .image-preview{ width: 64px; height: 64px; }
+  .image-preview--medium{ width: 80px; height: 80px; }
+}
+
+/* Utilities */
+.mt-2{ margin-top: .5rem; }
+.mb-2{ margin-bottom: .5rem; }
+.text-muted{ color: var(--muted); }
+/* Thu nhỏ preview logo */
+:root{
+  --preview-tiny: 56px;
+  --preview-radius: 6px;
+  --preview-border: #e6e9ef;
+  --preview-shadow: 0 3px 8px rgba(12,34,56,0.06);
+}
+
+.image-preview{
+  width: var(--preview-tiny) !important;
+  height: var(--preview-tiny) !important;
+  object-fit: cover;
+  border-radius: var(--preview-radius);
+  border: 1px solid var(--preview-border);
+  box-shadow: var(--preview-shadow);
+  display: block;
+}
+
+/* Nếu muốn có tùy chọn khác (ví dụ 40px) */
+.image-preview--smaller{
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 6px;
+}
+
+/* Responsive: giữ nhỏ trên mobile */
+@media (max-width: 576px){
+  .image-preview{ width: 48px !important; height: 48px !important; }
+  .image-preview--smaller{ width: 36px !important; height: 36px !important; }
+}

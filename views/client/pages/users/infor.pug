@@ -1,0 +1,66 @@
+
+//- extends ../../layouts/default.pug
+//- include ../../layouts/mixins/box-head.pug
+//- include ../../layouts/mixins/product-layout.pug
+//- include ../../layouts/mixins/alert.pug
+
+//- block append head
+//-     link(rel="stylesheet" href="/css/infor_user.css")
+//- block main 
+//-     +alert-error(5000)
+//-     .container.my-5
+//-         .row.justify-content-center 
+//-             .col-8
+
+//-                 h1(class="text-center") Thông tin cá nhân
+//-                 div #{user}
+extends ../../layouts/default.pug
+include ../../layouts/mixins/box-head.pug
+include ../../layouts/mixins/product-layout.pug
+include ../../layouts/mixins/alert.pug
+
+block append head
+    link(rel="stylesheet" href="/css/infor_user.css")
+
+block main 
+    +alert-error(5000)
+    .container.my-5
+        .row.justify-content-center
+            .col-lg-8.col-md-10.col-sm-12
+                .profile-card
+                    .profile-card__header
+                        h1.profile-card__title Thông tin cá nhân
+                        .profile-card__actions
+                         
+                            a.btn.btn-secondary.ml-2(href="/user/change-password") Đổi mật khẩu
+                    .profile-card__body
+                        .profile-grid
+                            .profile-grid__avatar
+                                if user 
+                                    img.avatar(src='/uploads/user-avatar-male-5.png' alt=`Avatar ${user.fullName}`)
+                                else
+                                    .avatar.avatar--placeholder
+                                        span.avatar__initial= user && user.fullName ? user.fullName.split(' ').slice(-1)[0].charAt(0).toUpperCase() : 'U'
+                            .profile-grid__info
+                                .info-row
+                                    .info-label **Họ và tên**
+                                    .info-value= user && user.fullName ? user.fullName : 'Chưa cập nhật'
+                                .info-row
+                                    .info-label **Email**
+                                    .info-value= user && user.email ? user.email : 'Chưa cập nhật'
+                                .info-row
+                                    .info-label **Tài khoản**
+                                    .info-value=  'Người dùng'
+                                .info-row
+                                    .info-label **Ngày tạo**
+                                    .info-value= user && user.createdAt ? new Date(user.createdAt).toLocaleString('vi-VN') : 'Không rõ'
+                                .info-row
+                                    .info-label **Trạng thái**
+                                    if user && user.deleted
+                                        .badge.badge-danger Đã xoá
+                                    else
+                                        .badge.badge-success Hoạt động
+                    .profile-card__footer
+                        small.text-muted Thông tin được cập nhật lần cuối:
+                        if user && user.updatedAt
+                            small.text-muted.ml-1= new Date(user.updatedAt).toLocaleString('vi-VN')

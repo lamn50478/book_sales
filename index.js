@@ -52,7 +52,12 @@ router(app)
 routerAdmin(app)
 
 
-
+// app.get("*",(req,res)=>{
+//     res.render("client/pages/errors/404.pug", {
+//       pageTitle: "Trang tổng quan",
+     
+//     });
+// })
 app.listen(port,()=>{
     console.log(`example listening on ${port}`);
 })
