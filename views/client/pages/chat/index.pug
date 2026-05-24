@@ -50,18 +50,20 @@ block main
                                         each image in chat.images 
                                             img(src=image)
                         div(class="inner-list-typing")
-                           
+                    .inner-preview-images 
+                        div(class="custom-file-container" data-upload-id="upload-image")     
                     .inner-foot
                         form.inner-form(action="" method="post")
                             input(type="text" name="content" placeholder="Nhập nội dung..." aria-label="Nội dung tin nhắn")
-                            div(class="custom-file-container" data-upload-id="upload-image") 
-                            span.button-icon
-                                
+                            //- div(class="custom-file-container" data-upload-id="upload-image") 
+                            label(for="file-upload-with-preview-upload-image" class=" btn btn-light mx-2 mb-0 " ) 
+                                <i class="fa-solid fa-image"></i>
+                            span.button-icon.btn.btn-light.mx-2.mb-0  
                                 i(class="fa-regular fa-face-grin-tongue")
                             button
                                 i.fa-solid.fa-paper-plane
     
     div(class="tooltip" role="tooltip")
-        emoji-picker(class="light")
+        emoji-picker(class="dark")
   
     
