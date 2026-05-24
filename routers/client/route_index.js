@@ -5,9 +5,11 @@ const cartIdMiddleware=require("../../middeware/client/cartId.middleware.js");
 const cartRouter=require("../../routers/client/cart.route.js");
 const checkoutRouter=require("../../routers/client/checkout.route.js");
 const userRouter=require("../../routers/client/user.router.js");
+const chatRouter=require("../../routers/client/chat.route.js");
+
 
 const userMiddleware=require("../../middeware/client/user.middleware.js");
-
+const authMiddleware=require("../../middeware/client/auth.middleware.js");
 
 
 const settingMiddleware=require("../../middeware/client/setting.middleware.js");
@@ -19,7 +21,7 @@ module.exports=(app)=>{
    app.use(userMiddleware.inforUser);
    app.use(settingMiddleware.Setting);
 
-
+   
    app.use('/',homeRouter);
 
    app.use('/products',ProductRouter);
@@ -27,6 +29,9 @@ module.exports=(app)=>{
    app.use('/cart',cartRouter);
    app.use('/checkout',checkoutRouter);
    app.use('/user',userRouter);
+   app.use('/chat',authMiddleware.requireAuth,chatRouter);
+
+   
 
 
 

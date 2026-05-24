@@ -1,0 +1,260 @@
+/* Layout chính */
+.chat {
+  background: #f0f2f5;
+  border-radius: 12px;
+  padding: 12px;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  overflow: hidden;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Phần hiển thị tin nhắn */
+.inner-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scroll-behavior: smooth;
+}
+
+/* Bong bóng chung */
+.inner-outgoing, .inner-coming {
+  max-width: 72%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* Tin nhắn của người dùng (bên phải) */
+.inner-outgoing {
+  background: linear-gradient(180deg,#0084ff,#006fe6);
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 18px;
+  align-self: flex-end;
+}
+
+/* Tin nhắn người khác (bên trái) */
+.inner-coming {
+  background: #e9edf2;
+  color: #050505;
+  margin-right: auto;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 18px;
+  align-self: flex-start;
+}
+
+/* Tên người gửi cho incoming */
+.inner-name {
+  font-size: 12px;
+  color: #606770;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Thời gian nhỏ (nếu cần) */
+.inner-time {
+  font-size: 11px;
+  color: rgba(0,0,0,0.45);
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* Footer nhập tin nhắn */
+.inner-foot {
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding: 10px;
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+/* Form nhập */
+.inner-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Input chính */
+.inner-form input[type="text"] {
+  flex: 1 1 auto;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 14px;
+  font-size: 14px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04) inset;
+  transition: box-shadow .15s ease, transform .08s ease;
+}
+
+/* Focus input */
+.inner-form input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0,132,255,0.12);
+  transform: translateY(-1px);
+}
+
+/* Nút gửi tròn */
+.inner-form button {
+  background-color: #0084ff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(3,102,214,0.18);
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+
+/* Hover/active nút gửi */
+.inner-form button:hover { transform: translateY(-2px); }
+.inner-form button:active { transform: translateY(0); box-shadow: 0 3px 8px rgba(3,102,214,0.14); }
+
+/* Icon máy bay giấy (nếu dùng fontawesome) */
+.inner-form button i.fa-paper-plane {
+  transform: rotate(-20deg);
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .chat { height: 560px; padding: 10px; }
+  .inner-outgoing, .inner-coming { max-width: 86%; font-size: 13px; }
+  .inner-form button { width: 40px; height: 40px; }
+}
+
+/* icon */
+ .tooltip {
+          visibility: hidden;
+      }
+  .tooltip.shown {
+          visibility: visible;
+          opacity:1
+      }
+  .button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;           /* vùng nhấn ngang */
+  height: 40px;          /* vùng nhấn dọc */
+  padding: 6px;
+  cursor: pointer;
+ 
+  border-radius: 6px;
+  transition: background-color 0.12s ease, transform 0.12s ease;
+}
+
+/* Kích thước thực của FontAwesome icon */
+.button-icon i {
+  font-size: 22px;       /* thay đổi giá trị này để to/nhỏ */
+  line-height: 1;
+  color: #333;           /* màu icon */
+  display: inline-block;
+  vertical-align: middle;
+  pointer-events: none;  /* tránh chặn click trên span */
+}
+
+/* Hiệu ứng hover/focus để người dùng biết có thể click */
+.button-icon:hover,
+.button-icon:focus {
+  background-color: rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+/* Khi muốn icon lớn hơn trên màn hình nhỏ hoặc lớn */
+@media (min-width: 768px) {
+  .button-icon { width: 44px; height: 44px; }
+  .button-icon i { font-size: 24px; }
+}
+
+/* Nếu muốn icon thật to (ví dụ 32px) */
+.button-icon.icon-large i {
+  font-size: 32px;
+}
+/*end icon */
+
+/* inner-dots */
+
+/* Typing indicator wrapper */
+.box-typing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+/* Tên người đang gõ */
+.box-typing .inner-name {
+  font-size: 11px;
+  color: #888;
+  padding-left: 4px;
+  font-weight: 500;
+}
+
+/* Bong bóng chứa 3 chấm */
+.box-typing .inner-dots-wrap {
+  background: #f0f0f0;
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Mỗi chấm */
+.box-typing .inner-dots-wrap span {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #aaa;
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+
+.box-typing .inner-dots-wrap span:nth-child(2) { animation-delay: 0.2s; }
+.box-typing .inner-dots-wrap span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0);   opacity: 0.4; }
+  30%            { transform: translateY(-5px); opacity: 1;   }
+}
+/*end inner-dots */
+
+/* 
+image */
+.chat .inner-body .inner-images img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: #efefef;
+    padding: 10px;
+    margin: 0 5px 5px 0;
+    border-radius: 5px;
+}
+
+.chat .inner-body .inner-outgoing .inner-images {
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat .inner-body .inner-outgoing .inner-images img {
+    margin: 0 0 5px 5px;
+}
+
+/* End chat */
+
+/* image */

@@ -1,17 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\middeware",
-    "\\middeware\\admin",
-    "\\validates",
-    "\\validates\\admin",
-    "\\views",
-    "\\views\\admin",
-    "\\views\\admin\\layouts",
-    "\\views\\admin\\pages",
-    "\\views\\admin\\pages\\auth",
-    "\\views\\admin\\pages\\dashboard"
+    "\\public",
+    "\\public\\admin",
+    "\\pug views",
+    "\\pug views\\admin",
+    "\\pug views\\admin\\pages",
+    "\\pug views\\admin\\pages\\products"
   ],
-  "SelectedNode": "\\views\\admin\\pages\\dashboard\\index.pug",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,122 @@
+/* Biến màu sắc để dễ quản lý */
+:root {
+  --primary-color: #0084ff;
+  --bg-incoming: #e4e6eb;
+  --bg-chat: #f0f2f5;
+  --text-main: #050505;
+  --white: #ffffff;
+}
+
+.chat {
+  background: var(--bg-chat);
+  border-radius: 12px;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  font-family: -apple-system, sans-serif;
+}
+
+.inner-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Khoảng cách giữa các tin nhắn */
+}
+
+/* Wrapper cho từng tin nhắn */
+.inner-outgoing, .inner-coming {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+}
+
+.inner-outgoing { align-self: flex-end; align-items: flex-end; }
+.inner-coming { align-self: flex-start; align-items: flex-start; }
+
+/* Tên người gửi */
+.inner-name {
+  font-size: 11px;
+  color: #65676b;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+/* Khối văn bản (Bong bóng chat) */
+.inner-content {
+  padding: 8px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  width: fit-content;
+}
+
+.inner-coming .inner-content {
+  background: var(--bg-incoming);
+  color: var(--text-main);
+  border-radius: 18px 18px 18px 4px;
+}
+
+.inner-outgoing .inner-content {
+  background: var(--primary-color);
+  color: var(--white);
+  border-radius: 18px 18px 4px 18px;
+}
+
+/* Khối hình ảnh - Tách biệt với văn bản */
+.inner-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px; /* Tạo khoảng cách với chữ phía trên */
+}
+
+.inner-images img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.inner-outgoing .inner-images { justify-content: flex-end; }
+
+/* Typing indicator */
+.box-typing { margin-top: 5px; }
+.inner-dots-wrap {
+  background: var(--bg-incoming);
+  padding: 8px 12px;
+  border-radius: 15px;
+  display: flex;
+  gap: 4px;
+}
+.inner-dots-wrap span {
+  width: 6px; height: 6px; background: #90949c;
+  border-radius: 50%; animation: bounce 1.3s infinite;
+}
+@keyframes bounce { 0%, 100% { opacity: 0.3; } 50% { transform: translateY(-3px); opacity: 1; } }
+
+/* Footer nhập liệu */
+.inner-foot {
+  padding: 12px;
+  background: var(--white);
+  border-top: 1px solid #eee;
+}
+
+.inner-form { display: flex; align-items: center; gap: 10px; }
+.inner-form input {
+  flex: 1; border: none; background: #f0f2f5;
+  padding: 10px 15px; border-radius: 20px; outline: none;
+}
+.inner-form button {
+  background: var(--primary-color); border: none;
+  width: 38px; height: 38px; border-radius: 50%;
+  color: white; cursor: pointer; transition: 0.2s;
+}
+.inner-form button:hover { transform: scale(1.1); }
+
+/* Icon Emoji */
+.button-icon { font-size: 20px; color: #888; cursor: pointer; }
