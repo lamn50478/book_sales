@@ -10,7 +10,14 @@ const UserSchema= new mongoose.Schema({
    },
    phone:String,
    avatar:String,
-   
+   acceptFriends:Array,
+   requestFriends:Array,
+   listFriends:[
+      {
+        user_id:String,
+        room_chat_id:String
+      }
+   ],
    status:String,
   deleted: {
     type:Boolean,

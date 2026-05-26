@@ -81,6 +81,9 @@ socket.on("SERVER_RETURN_MESSAGE",(data)=>{
     console.log(div);
      body.insertBefore(div, elementListTyping); 
      body.scrollTop = body.scrollHeight;
+     if(data.images && data.images.length > 0 && gallery) {
+        gallery.update(); // Yêu cầu Viewer.js quét lại các thẻ <img> mới thêm vào
+    }
 })
 //Ham show typing
 var timeOut;
@@ -192,3 +195,20 @@ if(elementListTyping){
 //end typing
 
 
+
+// Image preview
+
+// const chatBody=document.querySelector(".chat .inner-body");
+// if(chatBody){
+//   const gallery = new Viewer(chatBody);
+// }
+// Image preview
+// Khởi tạo biến global trong file để các hàm khác có thể gọi tới `.update()`
+let gallery; 
+
+const chatBody = document.querySelector(".chat .inner-body");
+if (chatBody) {
+    gallery = new Viewer(chatBody); // Bỏ chữ 'const' ở đây đi
+}
+//end Image preview
+//end Image preview

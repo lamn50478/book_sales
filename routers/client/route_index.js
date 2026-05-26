@@ -5,6 +5,8 @@ const cartIdMiddleware=require("../../middeware/client/cartId.middleware.js");
 const cartRouter=require("../../routers/client/cart.route.js");
 const checkoutRouter=require("../../routers/client/checkout.route.js");
 const userRouter=require("../../routers/client/user.router.js");
+const usersRouter=require("../../routers/client/users.router.js");
+
 const chatRouter=require("../../routers/client/chat.route.js");
 
 
@@ -29,6 +31,8 @@ module.exports=(app)=>{
    app.use('/cart',cartRouter);
    app.use('/checkout',checkoutRouter);
    app.use('/user',userRouter);
+   app.use('/users',authMiddleware.requireAuth,usersRouter);
+
    app.use('/chat',authMiddleware.requireAuth,chatRouter);
 
    
