@@ -9,6 +9,7 @@ const  sendMailHelper=require("../../helpers/sendMail");
 const Cart=require("../../models/carts.model");
 
 const md5=require("md5");
+
 module.exports.notFriend=async (req,res)=>{
     
    const userId=res.locals.user.id;
@@ -17,13 +18,10 @@ module.exports.notFriend=async (req,res)=>{
         });
         const requestFriends=myUser ? (myUser.requestFriends || []) : [];
         const acceptFriends=myUser ? (myUser.acceptFriends || []) : [];
-
+        const allIdRemove=[userId,...requestFriends,...acceptFriends];
     const users=await User.find({
-        _id:{                 //ket hop nhieu dieu kien https://stackoverflow.com/questions/62206664/mongoose-query-to-find-based-on-multiple-not-equals
-             $ne:userId,
-             $nin:requestFriends,
-             $nin:acceptFriends
-
+        _id:{                 //ket hop nhieu dieu kien https://stackoverflow.com/questions/62206664/mongoose-query-to-find-based-on-multiple-not-equals    
+             $nin:allIdRemove,
     },
 
         // _id:{$ne:userId},
@@ -34,6 +32,49 @@ module.exports.notFriend=async (req,res)=>{
     console.log(users);
      res.render('client/pages/friends/not-friend.pug',{
          pageTitle:"Trang danh sach nguoi dung ",
+         users:users
+        
+   })
+}
+//[GET] /users/request
+module.exports.request=async (req,res)=>{
+    
+   const userId=res.locals.user.id;
+     const myUser=await User.findOne({
+            _id:userId
+        });
+        const requestFriends=myUser ? (myUser.requestFriends || []) : [];
+        const acceptFriends=myUser ? (myUser.acceptFriends || []) : [];
+
+    const users=await User.find({
+        _id:{ $in:requestFriends  },
+        deleted:false
+    }).select(" id avatar fullName")
+    console.log(users);
+     res.render('client/pages/friends/request.pug',{
+         pageTitle:"Lời mời đã gửi ",
+         users:users
+        
+   })
+}
+
+//[GET] /users/request
+module.exports.accept=async (req,res)=>{
+    
+   const userId=res.locals.user.id;
+     const myUser=await User.findOne({
+            _id:userId
+        });
+        const requestFriends=myUser ? (myUser.requestFriends || []) : [];
+        const acceptFriends=myUser ? (myUser.acceptFriends || []) : [];
+
+    const users=await User.find({
+        _id:{ $in:acceptFriends  },
+        deleted:false
+    }).select(" id avatar fullName")
+    console.log(users);
+     res.render('client/pages/friends/accept.pug',{
+         pageTitle:"Lời mời đã nhận ",
          users:users
         
    })
